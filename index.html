@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Undangan Pernikahan</title>
+  <!-- Link ke CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- HERO / COVER SECTION -->
+  <section id="hero" class="section">
+    <div class="content">
+      <h1>Romeo & Juliet</h1>
+      <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+      <!-- Nama tamu akan otomatis berubah di sini -->
+      <h2 id="nama-tamu">Nama Tamu Undangan</h2>
+      <button onclick="bukaUndangan()">Buka Undangan</button>
+    </div>
+  </section>
+
+  <!-- KONTEN UNDANGAN (Disembunyikan awal) -->
+  <div id="main-content" class="hidden">
+    
+    <!-- SECTION 1: ACARA -->
+    <section id="acara" class="section">
+      <h2>Mempelai & Acara</h2>
+      <p>Kami mengundang Anda untuk hadir di acara pernikahan kami...</p>
+    </section>
+
+    <!-- SECTION 2: FORM RSVP & UCAPAN -->
+    <section id="rsvp" class="section">
+      <h2>Konfirmasi Kehadiran & Doa</h2>
+      
+      <form id="form-rsvp">
+        <div class="form-group">
+          <label>Nama Anda:</label>
+          <input type="text" id="input-nama" readonly required>
+        </div>
+
+        <div class="form-group">
+          <label>Konfirmasi Kehadiran:</label>
+          <select id="input-konfirmasi" required>
+            <option value="Hadir">Hadir</option>
+            <option value="Tidak Hadir">Tidak Hadir</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Jumlah Tamu:</label>
+          <input type="number" id="input-jumlah" value="1" min="1" max="5">
+        </div>
+
+        <div class="form-group">
+          <label>Ucapan & Doa:</label>
+          <textarea id="input-ucapan" rows="4" placeholder="Tuliskan ucapan & doa Anda..." required></textarea>
+        </div>
+
+        <button type="submit" id="btn-submit">Kirim RSVP</button>
+      </form>
+
+      <!-- TEMPAT MENAMPILKAN UCAPAN TAMU -->
+      <div id="daftar-ucapan" class="ucapan-container">
+        <h3>Ucapan & Doa Tamu</h3>
+        <div id="list-ucapan-content">Memuat ucapan...</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Link ke JavaScript (Di-import terpisah) -->
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
