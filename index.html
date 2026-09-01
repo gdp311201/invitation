@@ -4,72 +4,78 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Undangan Pernikahan</title>
-  <!-- Link ke CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- HERO / COVER SECTION -->
-  <section id="hero" class="section">
-    <div class="content">
-      <h1>Romeo & Juliet</h1>
-      <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
-      <!-- Nama tamu akan otomatis berubah di sini -->
-      <h2 id="nama-tamu">Nama Tamu Undangan</h2>
-      <button onclick="bukaUndangan()">Buka Undangan</button>
-    </div>
-  </section>
+  <!-- AUDIO BACKGROUND -->
+  <audio id="bg-music" loop>
+    <source src="assets/audio/wedding-music.mp3" type="audio/mpeg">
+  </audio>
 
-  <!-- KONTEN UNDANGAN (Disembunyikan awal) -->
-  <div id="main-content" class="hidden">
+  <!-- COVER / OVERLAY AMPLOP -->
+  <div id="cover-overlay" class="cover-container">
+    <div class="cover-content">
+      <p class="sub-title">The Wedding Of</p>
+      <h1>Mempelai & Pasangan</h1>
+      <div class="guest-box">
+        <p>Kepada Yth. Bapak/Ibu/Saudara/i:</p>
+        <h2 id="nama-tamu">Nama Tamu Undangan</h2>
+      </div>
+      <button class="btn-open" onclick="bukaUndangan()">✉️ Buka Undangan</button>
+    </div>
+  </div>
+
+  <!-- KONTEN UTAMA UNDANGAN -->
+  <main id="main-content" class="hidden">
     
-    <!-- SECTION 1: ACARA -->
-    <section id="acara" class="section">
-      <h2>Mempelai & Acara</h2>
-      <p>Kami mengundang Anda untuk hadir di acara pernikahan kami...</p>
+    <!-- CONTROLLER MUSIK FLOATING -->
+    <button id="btn-music" class="floating-music" onclick="toggleAudio()">🎵</button>
+
+    <!-- SECTION 1: HERO / MEMPELAI -->
+    <section id="hero" class="section">
+      <h2>Romeo & Juliet</h2>
+      <p>Akan melangsungkan pernikahan pada hari MINGGU, 20 OKTOBER 2026</p>
     </section>
 
-    <!-- SECTION 2: FORM RSVP & UCAPAN -->
-    <section id="rsvp" class="section">
-      <h2>Konfirmasi Kehadiran & Doa</h2>
-      
-      <form id="form-rsvp">
-        <div class="form-group">
-          <label>Nama Anda:</label>
-          <input type="text" id="input-nama" readonly required>
-        </div>
+    <!-- SECTION 2: ACARA & LOKASI -->
+    <section id="acara" class="section">
+      <h3>Akad & Resepsi</h3>
+      <p>📍 Gedung Perkawinan Indah, Jakarta</p>
+      <a href="https://maps.google.com" target="_blank" class="btn-map">Buka Google Maps</a>
+    </section>
 
-        <div class="form-group">
-          <label>Konfirmasi Kehadiran:</label>
-          <select id="input-konfirmasi" required>
-            <option value="Hadir">Hadir</option>
-            <option value="Tidak Hadir">Tidak Hadir</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Jumlah Tamu:</label>
-          <input type="number" id="input-jumlah" value="1" min="1" max="5">
-        </div>
-
-        <div class="form-group">
-          <label>Ucapan & Doa:</label>
-          <textarea id="input-ucapan" rows="4" placeholder="Tuliskan ucapan & doa Anda..." required></textarea>
-        </div>
-
-        <button type="submit" id="btn-submit">Kirim RSVP</button>
-      </form>
-
-      <!-- TEMPAT MENAMPILKAN UCAPAN TAMU -->
-      <div id="daftar-ucapan" class="ucapan-container">
-        <h3>Ucapan & Doa Tamu</h3>
-        <div id="list-ucapan-content">Memuat ucapan...</div>
+    <!-- SECTION 3: DIGITAL GIFT / REKENING -->
+    <section id="gift" class="section">
+      <h3>Amplop Digital</h3>
+      <div class="bank-card">
+        <p><strong>Bank BCA</strong></p>
+        <p id="no-rek">1234567890</p>
+        <p>a.n. Mempelai</p>
+        <button onclick="copyRekening('1234567890')">📋 Salin No. Rekening</button>
       </div>
     </section>
 
-  </div>
+    <!-- SECTION 4: FORM RSVP & BUKU TAMU -->
+    <section id="rsvp" class="section">
+      <h3>Konfirmasi Kehadiran & Doa</h3>
+      <form id="form-rsvp">
+        <input type="text" id="input-nama" readonly required>
+        <select id="input-konfirmasi" required>
+          <option value="Hadir">Hadir</option>
+          <option value="Tidak Hadir">Tidak Hadir</option>
+        </select>
+        <input type="number" id="input-jumlah" value="1" min="1" max="5">
+        <textarea id="input-ucapan" placeholder="Tulis ucapan & doa..." required></textarea>
+        <button type="submit" id="btn-submit">Kirim RSVP</button>
+      </form>
 
-  <!-- Link ke JavaScript (Di-import terpisah) -->
+      <!-- UCAPAN REALTIME DARI APPS SCRIPT -->
+      <div id="list-ucapan-content">Memuat ucapan...</div>
+    </section>
+
+  </main>
+
   <script src="js/api.js"></script>
   <script src="js/app.js"></script>
 </body>
