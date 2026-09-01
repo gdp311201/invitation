@@ -45,17 +45,20 @@
        RESET
        ======================================== */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { 
-      height: 100%; 
-      overflow: hidden; 
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body { 
       font-family: var(--font-sans); 
-      background: var(--cream); 
+      background-color: var(--cream); 
       color: var(--text-primary); 
+      line-height: 1.7; 
+      overflow-x: hidden; 
       -webkit-font-smoothing: antialiased;
-      -webkit-tap-highlight-color: transparent;
     }
     .hidden { display: none !important; }
     ::selection { background: var(--gold-light); color: var(--brown-dark); }
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--brown-pale); border-radius: 3px; }
 
     /* ========================================
        BATIK PATTERN
@@ -101,27 +104,62 @@
       50% { transform: scale(1); }
       75% { transform: scale(1.06); }
     }
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
 
-    /* Page content animations */
-    .page-content > * {
+    /* Scroll Reveal */
+    .reveal {
       opacity: 0;
-      transform: translateY(25px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    .page.active .page-content > *:nth-child(1) { opacity: 1; transform: translateY(0); transition-delay: 0.15s; }
-    .page.active .page-content > *:nth-child(2) { opacity: 1; transform: translateY(0); transition-delay: 0.3s; }
-    .page.active .page-content > *:nth-child(3) { opacity: 1; transform: translateY(0); transition-delay: 0.45s; }
-    .page.active .page-content > *:nth-child(4) { opacity: 1; transform: translateY(0); transition-delay: 0.6s; }
-    .page.active .page-content > *:nth-child(5) { opacity: 1; transform: translateY(0); transition-delay: 0.75s; }
-    .page.active .page-content > *:nth-child(6) { opacity: 1; transform: translateY(0); transition-delay: 0.9s; }
-    .page.active .page-content > *:nth-child(7) { opacity: 1; transform: translateY(0); transition-delay: 1.05s; }
-    .page.active .page-content > *:nth-child(8) { opacity: 1; transform: translateY(0); transition-delay: 1.2s; }
-    .page.active .page-content > *:nth-child(9) { opacity: 1; transform: translateY(0); transition-delay: 1.35s; }
-    .page.active .page-content > *:nth-child(10) { opacity: 1; transform: translateY(0); transition-delay: 1.5s; }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-left.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-right.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .reveal-scale {
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal-scale.active {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .reveal-delay-1 { transition-delay: 0.15s; }
+    .reveal-delay-2 { transition-delay: 0.3s; }
+    .reveal-delay-3 { transition-delay: 0.45s; }
+    .reveal-delay-4 { transition-delay: 0.6s; }
+
+    /* ========================================
+       SCROLL PROGRESS
+       ======================================== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+      z-index: 999;
+      transition: width 0.1s linear;
+      box-shadow: 0 0 10px rgba(201,169,110,0.5);
+    }
 
     /* ========================================
        COVER OVERLAY
@@ -144,9 +182,6 @@
       background: linear-gradient(135deg, rgba(26,17,8,0.6), rgba(44,30,15,0.4), rgba(26,17,8,0.7));
       z-index: 1;
     }
-
-    #cover-overlay.batik-pattern-dark { z-index: 1000; }
-    #cover-overlay.batik-pattern-dark::before { z-index: 1; }
 
     #cover-overlay.closing {
       animation: coverClose 1s cubic-bezier(0.76, 0, 0.24, 1) forwards;
@@ -276,91 +311,14 @@
     .confetti-piece.animate { animation: confetti-fall 3s ease-out forwards; }
 
     /* ========================================
-       PAGES CONTAINER - CORE NAVIGATION
-       ======================================== */
-    #pages-container {
-      position: fixed;
-      inset: 0;
-      z-index: 10;
-      overflow: hidden;
-    }
-
-    .page {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow-y: auto;
-      overflow-x: hidden;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(80px) scale(0.95);
-      transition: transform 0.7s cubic-bezier(0.65, 0, 0.35, 1), 
-                  opacity 0.7s cubic-bezier(0.65, 0, 0.35, 1),
-                  visibility 0.7s;
-      -webkit-overflow-scrolling: touch;
-    }
-
-    .page.active {
-      opacity: 1;
-      visibility: visible;
-      transform: translateX(0) scale(1);
-      z-index: 2;
-    }
-
-    .page.exit-left {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(-80px) scale(0.95);
-      z-index: 1;
-    }
-
-    .page.exit-right {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateX(80px) scale(0.95);
-      z-index: 1;
-    }
-
-    .page.exit-up {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(-60px) scale(0.98);
-      z-index: 1;
-    }
-
-    .page.exit-down {
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(60px) scale(0.98);
-      z-index: 1;
-    }
-
-    .page-content {
-      width: 100%;
-      max-width: 700px;
-      padding: 40px 24px;
-      text-align: center;
-    }
-
-    /* Scrollbar for internal scroll */
-    .page::-webkit-scrollbar { width: 4px; }
-    .page::-webkit-scrollbar-track { background: transparent; }
-    .page::-webkit-scrollbar-thumb { background: var(--brown-pale); border-radius: 2px; opacity: 0.5; }
-
-    /* ========================================
-       NAVIGATION ELEMENTS
+       NAV DOTS
        ======================================== */
     .nav-dots {
       position: fixed;
       right: 20px;
       top: 50%;
       transform: translateY(-50%);
-      z-index: 100;
+      z-index: 998;
       display: flex;
       flex-direction: column;
       gap: 12px;
@@ -414,86 +372,14 @@
       right: 24px;
     }
 
-    /* Page indicator (bottom) */
-    .page-indicator {
-      position: fixed;
-      bottom: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.5s ease;
-    }
-
-    .page-indicator.visible { opacity: 1; visibility: visible; }
-
-    .page-indicator-text {
-      font-size: 12px;
-      color: var(--text-light);
-      letter-spacing: 2px;
-    }
-
-    .page-indicator-dots {
-      display: flex;
-      gap: 6px;
-    }
-
-    .pi-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--brown-pale);
-      opacity: 0.3;
-      transition: all 0.4s ease;
-    }
-
-    .pi-dot.active {
-      opacity: 1;
-      background: var(--gold);
-      transform: scale(1.3);
-    }
-
-    /* Swipe hint */
-    .swipe-hint {
-      position: fixed;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.5s ease;
-    }
-
-    .swipe-hint.visible { opacity: 1; visibility: visible; }
-    .swipe-hint.hidden-hint { opacity: 0; visibility: hidden; }
-
-    .swipe-hint-text {
-      font-size: 11px;
-      color: var(--text-light);
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .swipe-hint-icon {
-      animation: float 2s ease-in-out infinite;
-      color: var(--brown-pale);
-    }
-
-    /* Floating music */
+    /* ========================================
+       FLOATING MUSIC
+       ======================================== */
     .floating-music {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      z-index: 150;
+      z-index: 998;
       width: 48px;
       height: 48px;
       border-radius: 50%;
@@ -541,8 +427,63 @@
     .toast.info { background: var(--gold); color: var(--brown-dark); }
 
     /* ========================================
+       LIGHTBOX
+       ======================================== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 85vh;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: var(--white);
+      font-size: 24px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+
+    .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+    /* ========================================
        SHARED SECTION STYLES
        ======================================== */
+    .section {
+      padding: 80px 24px;
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+
     .section-label {
       font-size: 11px;
       font-weight: 700;
@@ -601,31 +542,73 @@
     }
 
     /* ========================================
-       PAGE: HERO
+       HERO SECTION - DENGAN BACKGROUND FOTO
        ======================================== */
-    #page-hero { background: var(--cream); }
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 60px 24px;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(4px) brightness(0.4);
+      transform: scale(1.1);
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, 
+        rgba(26,17,8,0.3) 0%, 
+        rgba(26,17,8,0.5) 40%, 
+        rgba(26,17,8,0.7) 70%,
+        rgba(26,17,8,0.85) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 600px;
+    }
 
     .hero-bismillah {
       font-family: var(--font-classic);
-      font-size: 20px;
+      font-size: 22px;
       font-style: italic;
-      color: var(--brown-warm);
-      margin-bottom: 30px;
-      opacity: 0.8;
+      color: var(--gold-light);
+      margin-bottom: 35px;
+      opacity: 0.9;
     }
 
     .hero-names {
       font-family: var(--font-serif);
-      font-size: 48px;
+      font-size: 56px;
       font-weight: 700;
-      color: var(--brown-dark);
+      color: var(--white);
       line-height: 1.15;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
     .hero-ampersand {
       font-family: var(--font-script);
-      font-size: 56px;
-      color: var(--gold);
+      font-size: 64px;
+      color: var(--gold-light);
       display: block;
       margin: 2px 0;
     }
@@ -635,90 +618,52 @@
       align-items: center;
       justify-content: center;
       gap: 16px;
-      margin-top: 20px;
+      margin-top: 24px;
     }
 
     .hero-date-line .dash {
-      width: 40px;
+      width: 50px;
       height: 1px;
-      background: var(--brown-pale);
+      background: var(--gold);
+      opacity: 0.5;
     }
 
     .hero-date {
       font-family: var(--font-classic);
-      font-size: 17px;
-      color: var(--text-secondary);
-      letter-spacing: 2px;
-    }
-
-    .hero-ornament-frame {
-      margin: 35px auto 0;
-      width: 180px;
-      height: 180px;
-      position: relative;
-    }
-
-    .hero-frame-outer {
-      position: absolute;
-      inset: 0;
-      border: 2px solid var(--gold);
-      border-radius: 50%;
-      opacity: 0.25;
-    }
-
-    .hero-frame-middle {
-      position: absolute;
-      inset: 12px;
-      border: 1px solid var(--gold);
-      border-radius: 50%;
-      opacity: 0.4;
-    }
-
-    .hero-frame-inner {
-      position: absolute;
-      inset: 24px;
-      background: linear-gradient(135deg, var(--brown-warm), var(--brown));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: inset 0 0 30px rgba(0,0,0,0.2);
-    }
-
-    .hero-frame-initials {
-      font-family: var(--font-script);
-      font-size: 36px;
+      font-size: 18px;
       color: var(--gold-light);
+      letter-spacing: 3px;
     }
 
-    .hero-frame-dot {
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0.5;
+    .hero-ring-icon {
+      margin: 40px auto 0;
+      width: 80px;
+      height: 80px;
+      opacity: 0.8;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
     }
 
-    .hero-frame-dot:nth-child(4) { top: -2px; left: 50%; transform: translateX(-50%); }
-    .hero-frame-dot:nth-child(5) { bottom: -2px; left: 50%; transform: translateX(-50%); }
-    .hero-frame-dot:nth-child(6) { left: -2px; top: 50%; transform: translateY(-50%); }
-    .hero-frame-dot:nth-child(7) { right: -2px; top: 50%; transform: translateY(-50%); }
+    .hero-ring-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
 
     .hero-quote {
-      margin-top: 35px;
-      padding: 20px 24px;
-      background: linear-gradient(135deg, rgba(107,66,38,0.04), rgba(201,169,110,0.08));
-      border-left: 3px solid var(--gold);
-      border-radius: 0 12px 12px 0;
+      margin-top: 40px;
+      padding: 24px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,169,110,0.2);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
       text-align: left;
     }
 
     .hero-quote p {
       font-family: var(--font-classic);
       font-style: italic;
-      font-size: 15px;
-      color: var(--text-secondary);
+      font-size: 16px;
+      color: rgba(255,255,255,0.8);
       line-height: 1.8;
     }
 
@@ -728,32 +673,64 @@
       font-family: var(--font-sans);
       font-size: 11px;
       font-style: normal;
-      color: var(--gold-dark);
+      color: var(--gold);
       letter-spacing: 2px;
       text-transform: uppercase;
     }
 
-    /* ========================================
-       PAGE: COUNTDOWN
-       ======================================== */
-    #page-countdown {
-      background: linear-gradient(135deg, var(--brown-dark), var(--brown));
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: float 2s ease-in-out infinite;
     }
 
-    #page-countdown.batik-pattern::before {
+    .hero-scroll-hint span {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      opacity: 0.6;
+    }
+
+    /* ========================================
+       COUNTDOWN SECTION
+       ======================================== */
+    #countdown {
+      background: linear-gradient(135deg, var(--brown-dark), var(--brown));
+      border-radius: 24px;
+      padding: 56px 28px;
+      text-align: center;
+      color: var(--white);
+      margin: -40px 24px 50px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+      overflow: hidden;
+      z-index: 3;
+    }
+
+    #countdown.batik-pattern::before {
       content: '';
       position: absolute;
       inset: 0;
       background: linear-gradient(135deg, rgba(26,17,8,0.85), rgba(44,30,15,0.7));
-      z-index: 0;
+      z-index: 1;
     }
 
-    #page-countdown .page-content { position: relative; z-index: 1; }
+    #countdown > * { position: relative; z-index: 2; }
 
-    #page-countdown .section-label { color: var(--gold-light); }
-    #page-countdown .section-title { color: var(--gold-light); }
-    #page-countdown .divider-ornament .line { background: rgba(201,169,110,0.3); }
-    #page-countdown .divider-ornament .diamond { background: var(--gold-light); }
+    #countdown .section-label { color: var(--gold-light); }
+    #countdown .section-title { color: var(--gold-light); }
+    #countdown .divider-ornament .line { background: rgba(201,169,110,0.3); }
+    #countdown .divider-ornament .diamond { background: var(--gold-light); }
 
     .countdown-grid {
       display: grid;
@@ -789,9 +766,9 @@
     }
 
     /* ========================================
-       PAGE: ACARA
+       ACARA SECTION
        ======================================== */
-    #page-acara { background: var(--cream); }
+    #acara { padding-top: 100px; }
 
     .acara-cards-wrapper {
       display: grid;
@@ -825,20 +802,28 @@
     .acara-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-medium); }
 
     .acara-icon {
-      width: 50px;
-      height: 50px;
+      width: 56px;
+      height: 56px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--brown-warm), var(--brown));
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 16px;
-      color: var(--gold-light);
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    .acara-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: brightness(0) invert(1) opacity(0.8);
     }
 
     .acara-type {
       font-family: var(--font-script);
-      font-size: 24px;
+      font-size: 26px;
       color: var(--gold-dark);
       margin-bottom: 4px;
     }
@@ -882,19 +867,83 @@
     .btn-map:hover { background: var(--brown-dark); transform: translateY(-2px); }
 
     /* ========================================
-       PAGE: STORY
+       GALLERY SECTION
        ======================================== */
-    #page-story { background: var(--cream-warm); }
+    #galeri { background: var(--cream-warm); }
 
-    .story-scroll {
-      max-height: calc(100vh - 160px);
-      max-height: calc(100dvh - 160px);
-      overflow-y: auto;
-      padding-right: 8px;
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(2, 200px);
+      gap: 12px;
     }
 
-    .story-scroll::-webkit-scrollbar { width: 3px; }
-    .story-scroll::-webkit-scrollbar-thumb { background: var(--brown-pale); border-radius: 2px; }
+    .gallery-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      background: var(--cream-dark);
+    }
+
+    .gallery-item:hover {
+      transform: scale(1.02);
+      box-shadow: var(--shadow-medium);
+      z-index: 2;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.08); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,17,8,0.5), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      display: flex;
+      align-items: flex-end;
+      padding: 12px;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-overlay span {
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    /* Span 2 kolom untuk item besar */
+    .gallery-item:nth-child(1) { grid-column: span 2; }
+    .gallery-item:nth-child(6) { grid-column: span 2; }
+
+    /* Placeholder style */
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--text-light);
+    }
+
+    .gallery-placeholder svg { opacity: 0.3; }
+    .gallery-placeholder span { font-size: 11px; opacity: 0.5; }
+
+    /* ========================================
+       STORY SECTION
+       ======================================== */
+    #story { background: var(--cream); }
 
     .timeline {
       position: relative;
@@ -927,9 +976,9 @@
       width: 14px;
       height: 14px;
       border-radius: 50%;
-      background: var(--cream-warm);
+      background: var(--cream);
       border: 3px solid var(--gold);
-      box-shadow: 0 0 0 3px var(--cream-warm), 0 0 0 4px rgba(201,169,110,0.3);
+      box-shadow: 0 0 0 3px var(--cream), 0 0 0 4px rgba(201,169,110,0.3);
       z-index: 2;
     }
 
@@ -960,9 +1009,17 @@
     }
 
     /* ========================================
-       PAGE: RSVP
+       RSVP SECTION
        ======================================== */
-    #page-rsvp { background: var(--cream); }
+    #rsvp {
+      background: linear-gradient(180deg, var(--cream-warm), var(--cream));
+      border-radius: 24px;
+      margin: 0 24px;
+      padding: 60px 28px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
 
     .rsvp-form { text-align: left; margin-top: 10px; }
 
@@ -1017,13 +1074,12 @@
     .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
     /* ========================================
-       PAGE: WISHES
+       WISHES SECTION
        ======================================== */
-    #page-wishes { background: var(--cream-warm); }
+    #wishes { background: var(--cream); }
 
     .wishes-scroll {
-      max-height: calc(100vh - 180px);
-      max-height: calc(100dvh - 180px);
+      max-height: 500px;
       overflow-y: auto;
       padding-right: 4px;
     }
@@ -1100,9 +1156,9 @@
     }
 
     /* ========================================
-       PAGE: GIFT
+       GIFT SECTION
        ======================================== */
-    #page-gift { background: var(--cream); }
+    #gift { background: var(--cream-warm); }
 
     .gift-card {
       background: var(--white);
@@ -1180,9 +1236,13 @@
     .btn-copy:hover { background: var(--brown-warm); color: var(--gold-light); transform: translateY(-2px); }
 
     /* ========================================
-       PAGE: CLOSING
+       CLOSING SECTION
        ======================================== */
-    #page-closing { background: var(--cream); }
+    #closing {
+      text-align: center;
+      padding-bottom: 100px;
+      background: var(--cream);
+    }
 
     .closing-ornament { margin-bottom: 24px; opacity: 0.4; }
 
@@ -1204,6 +1264,19 @@
       margin-top: 30px;
     }
 
+    .closing-ring-icon {
+      margin: 30px auto 0;
+      width: 60px;
+      height: 60px;
+      opacity: 0.5;
+    }
+
+    .closing-ring-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
     .closing-footer {
       margin-top: 50px;
       padding-top: 20px;
@@ -1218,10 +1291,10 @@
     @media (max-width: 640px) {
       .cover-names { font-size: 34px; }
       .cover-ampersand { font-size: 42px; }
-      .hero-names { font-size: 38px; }
-      .hero-ampersand { font-size: 44px; }
-      .hero-ornament-frame { width: 140px; height: 140px; }
-      .hero-frame-initials { font-size: 28px; }
+      .hero-names { font-size: 42px; }
+      .hero-ampersand { font-size: 50px; }
+      .hero-bismillah { font-size: 18px; }
+      .section { padding: 60px 20px; }
       .section-title { font-size: 26px; }
       .section-subtitle { font-size: 24px; }
       .countdown-number { font-size: 32px; }
@@ -1229,11 +1302,22 @@
       .form-row { grid-template-columns: 1fr; }
       .nav-dots { display: none; }
       .gift-account-number { font-size: 18px; letter-spacing: 2px; }
-      .page-content { padding: 30px 20px; }
+      #countdown { margin: -30px 16px 40px; padding: 40px 20px; }
+      #rsvp { margin: 0 16px; padding: 50px 20px; }
+      
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, 160px);
+      }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+      .gallery-item:nth-child(6) { grid-column: span 1; }
     }
 
     @media (min-width: 768px) {
-      .page-content { padding: 50px 40px; }
+      .section { padding: 100px 40px; }
+      .gallery-grid {
+        grid-template-rows: repeat(2, 240px);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1241,11 +1325,14 @@
         animation-duration: 0.01ms !important;
         transition-duration: 0.2s !important;
       }
-      .page-content > * { opacity: 1; transform: none; transition: none; }
+      .reveal, .reveal-left, .reveal-right, .reveal-scale { opacity: 1; transform: none; }
     }
   </style>
 </head>
-<body>
+<body class="batik-pattern">
+
+  <!-- SCROLL PROGRESS -->
+  <div class="scroll-progress" id="scroll-progress"></div>
 
   <!-- AUDIO -->
   <audio id="bg-music" loop preload="auto">
@@ -1293,113 +1380,107 @@
     </div>
   </div>
 
-  <!-- ========================================
-       NAVIGATION ELEMENTS
-       ======================================== -->
+  <!-- NAV DOTS -->
   <nav class="nav-dots" id="nav-dots" aria-label="Navigasi">
-    <div class="nav-dot active" data-page="0"><span class="nav-dot-label">Mempelai</span></div>
-    <div class="nav-dot" data-page="1"><span class="nav-dot-label">Countdown</span></div>
-    <div class="nav-dot" data-page="2"><span class="nav-dot-label">Acara</span></div>
-    <div class="nav-dot" data-page="3"><span class="nav-dot-label">Cerita</span></div>
-    <div class="nav-dot" data-page="4"><span class="nav-dot-label">RSVP</span></div>
-    <div class="nav-dot" data-page="5"><span class="nav-dot-label">Ucapan</span></div>
-    <div class="nav-dot" data-page="6"><span class="nav-dot-label">Gift</span></div>
-    <div class="nav-dot" data-page="7"><span class="nav-dot-label">Penutup</span></div>
+    <div class="nav-dot active" data-section="hero"><span class="nav-dot-label">Mempelai</span></div>
+    <div class="nav-dot" data-section="countdown"><span class="nav-dot-label">Countdown</span></div>
+    <div class="nav-dot" data-section="acara"><span class="nav-dot-label">Acara</span></div>
+    <div class="nav-dot" data-section="galeri"><span class="nav-dot-label">Galeri</span></div>
+    <div class="nav-dot" data-section="story"><span class="nav-dot-label">Cerita</span></div>
+    <div class="nav-dot" data-section="rsvp"><span class="nav-dot-label">RSVP</span></div>
+    <div class="nav-dot" data-section="wishes"><span class="nav-dot-label">Ucapan</span></div>
+    <div class="nav-dot" data-section="gift"><span class="nav-dot-label">Gift</span></div>
+    <div class="nav-dot" data-section="closing"><span class="nav-dot-label">Penutup</span></div>
   </nav>
 
-  <div class="page-indicator" id="page-indicator">
-    <div class="page-indicator-dots">
-      <div class="pi-dot active"></div>
-      <div class="pi-dot"></div>
-      <div class="pi-dot"></div>
-      <div class="pi-dot"></div>
-      <div class="pi-dot"></div>
-      <div class="pi-dot"></div>
-      <div class="pi-dot"></div>
-      <div class="pi-dot"></div>
-    </div>
-  </div>
-
-  <div class="swipe-hint" id="swipe-hint">
-    <svg class="swipe-hint-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
-    <span class="swipe-hint-text">Geser ke atas</span>
-  </div>
-
+  <!-- FLOATING MUSIC -->
   <button id="btn-music" class="floating-music" aria-label="Toggle musik">
     <span id="music-icon">🎵</span>
   </button>
 
+  <!-- TOAST -->
   <div id="toast" class="toast"></div>
 
-  <!-- ========================================
-       PAGES CONTAINER
-       ======================================== -->
-  <div id="pages-container">
+  <!-- LIGHTBOX -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-label="Preview foto">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Tutup">&times;</button>
+    <img id="lightbox-img" src="" alt="Preview foto">
+  </div>
 
-    <!-- PAGE 0: HERO -->
-    <div class="page active" id="page-hero">
-      <div class="page-content">
-        <p class="hero-bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-        <h1 class="hero-names">
+  <!-- ========================================
+       KONTEN UTAMA
+       ======================================== -->
+  <main id="main-content" class="hidden">
+
+    <!-- HERO SECTION -->
+    <section id="hero">
+      <div class="hero-bg">
+        <img src="https://i.ibb.co/yn3gF6pv/7ae81c3544293730ff3ade48d6a112da.jpg" alt="Background">
+      </div>
+      
+      <div class="hero-content">
+        <p class="hero-bismillah reveal">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
+        
+        <h1 class="hero-names reveal reveal-delay-1">
           Elsa
           <span class="hero-ampersand">&</span>
           Julyo
         </h1>
-        <div class="hero-date-line">
+        
+        <div class="hero-date-line reveal reveal-delay-2">
           <span class="dash"></span>
           <span class="hero-date">28 April 2028</span>
           <span class="dash"></span>
         </div>
-        <div class="hero-ornament-frame">
-          <div class="hero-frame-outer"></div>
-          <div class="hero-frame-middle"></div>
-          <div class="hero-frame-inner"><span class="hero-frame-initials">E & J</span></div>
-          <div class="hero-frame-dot"></div>
-          <div class="hero-frame-dot"></div>
-          <div class="hero-frame-dot"></div>
-          <div class="hero-frame-dot"></div>
+
+        <div class="hero-ring-icon reveal-scale reveal-delay-3">
+          <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin">
         </div>
-        <div class="hero-quote">
+        
+        <div class="hero-quote reveal reveal-delay-4">
           <p>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya."</p>
           <cite>QS. Ar-Rum: 21</cite>
         </div>
       </div>
-    </div>
 
-    <!-- PAGE 1: COUNTDOWN -->
-    <div class="page" id="page-countdown" class="batik-pattern">
-      <div class="page-content">
-        <p class="section-label">Menghitung Hari</p>
-        <h2 class="section-title">Menuju Hari Bahagia</h2>
-        <div class="divider-ornament">
-          <span class="line"></span>
-          <span class="diamond"></span>
-          <span class="line"></span>
+      <div class="hero-scroll-hint reveal reveal-delay-5">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        <span>Scroll</span>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN -->
+    <div id="countdown" class="reveal batik-pattern">
+      <p class="section-label">Menghitung Hari</p>
+      <h2 class="section-title">Menuju Hari Bahagia</h2>
+      <div class="divider-ornament">
+        <span class="line"></span>
+        <span class="diamond"></span>
+        <span class="line"></span>
+      </div>
+      <div class="countdown-grid">
+        <div class="countdown-item">
+          <div class="countdown-number" id="cd-days">00</div>
+          <div class="countdown-label">Hari</div>
         </div>
-        <div class="countdown-grid">
-          <div class="countdown-item">
-            <div class="countdown-number" id="cd-days">00</div>
-            <div class="countdown-label">Hari</div>
-          </div>
-          <div class="countdown-item">
-            <div class="countdown-number" id="cd-hours">00</div>
-            <div class="countdown-label">Jam</div>
-          </div>
-          <div class="countdown-item">
-            <div class="countdown-number" id="cd-minutes">00</div>
-            <div class="countdown-label">Menit</div>
-          </div>
-          <div class="countdown-item">
-            <div class="countdown-number" id="cd-seconds">00</div>
-            <div class="countdown-label">Detik</div>
-          </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="cd-hours">00</div>
+          <div class="countdown-label">Jam</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="cd-minutes">00</div>
+          <div class="countdown-label">Menit</div>
+        </div>
+        <div class="countdown-item">
+          <div class="countdown-number" id="cd-seconds">00</div>
+          <div class="countdown-label">Detik</div>
         </div>
       </div>
     </div>
 
-    <!-- PAGE 2: ACARA -->
-    <div class="page" id="page-acara">
-      <div class="page-content">
+    <!-- ACARA -->
+    <section id="acara" class="section">
+      <div class="reveal" style="text-align:center;">
         <p class="section-label">Detail Acara</p>
         <h2 class="section-title">Rangkaian Acara</h2>
         <div class="divider-ornament">
@@ -1407,60 +1488,150 @@
           <span class="diamond"></span>
           <span class="line"></span>
         </div>
-        <div class="acara-cards-wrapper">
-          <div class="acara-card">
-            <div class="acara-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            </div>
-            <p class="acara-type">Akad Nikah</p>
-            <h3 class="acara-title">Ikrar Suci</h3>
-            <div class="acara-detail">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>28 April 2028</span>
-            </div>
-            <div class="acara-detail">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>08:00 - 10:00 WIB</span>
-            </div>
-            <div class="acara-detail">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Masjid Agung Jawa Tengah</span>
-            </div>
-            <a href="https://maps.google.com/?q=Masjid+Agung+Jawa+Tengah+Semarang" target="_blank" class="btn-map">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-              Lokasi
-            </a>
+      </div>
+
+      <div class="acara-cards-wrapper">
+        <div class="acara-card reveal reveal-delay-1">
+          <div class="acara-icon">
+            <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin">
           </div>
-          <div class="acara-card">
-            <div class="acara-icon">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5.8 11.3L2 22l10.7-3.79"/><path d="M4 3h.01M22 22h.01M15 6h.01M15 18h.01M18 3h.01M18 9h.01M18 15h.01M3 9h.01M3 15h.01"/><path d="M9 3h6v6H9V3z"/><path d="M9 15h6v6H9v-6z"/></svg>
-            </div>
-            <p class="acara-type">Resepsi</p>
-            <h3 class="acara-title">Pesta Pernikahan</h3>
-            <div class="acara-detail">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              <span>28 April 2028</span>
-            </div>
-            <div class="acara-detail">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span>11:00 - 14:00 WIB</span>
-            </div>
-            <div class="acara-detail">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-              <span>Hotel Grand Candi, Semarang</span>
-            </div>
-            <a href="https://maps.google.com/?q=Hotel+Grand+Candi+Semarang" target="_blank" class="btn-map">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-              Lokasi
-            </a>
+          <p class="acara-type">Akad Nikah</p>
+          <h3 class="acara-title">Ikrar Suci</h3>
+          <div class="acara-detail">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>28 April 2028</span>
           </div>
+          <div class="acara-detail">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>08:00 - 10:00 WIB</span>
+          </div>
+          <div class="acara-detail">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Masjid Agung Jawa Tengah, Semarang</span>
+          </div>
+          <a href="https://maps.google.com/?q=Masjid+Agung+Jawa+Tengah+Semarang" target="_blank" class="btn-map">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            Buka Lokasi
+          </a>
+        </div>
+
+        <div class="acara-card reveal reveal-delay-2">
+          <div class="acara-icon">
+            <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin">
+          </div>
+          <p class="acara-type">Resepsi</p>
+          <h3 class="acara-title">Pesta Pernikahan</h3>
+          <div class="acara-detail">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>28 April 2028</span>
+          </div>
+          <div class="acara-detail">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>11:00 - 14:00 WIB</span>
+          </div>
+          <div class="acara-detail">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Hotel Grand Candi, Semarang</span>
+          </div>
+          <a href="https://maps.google.com/?q=Hotel+Grand+Candi+Semarang" target="_blank" class="btn-map">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+            Buka Lokasi
+          </a>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- PAGE 3: STORY -->
-    <div class="page" id="page-story">
-      <div class="page-content">
+    <!-- GALERI FOTO -->
+    <section id="galeri" class="section">
+      <div class="reveal" style="text-align:center;">
+        <p class="section-label">Galeri</p>
+        <h2 class="section-title">Momen Kami</h2>
+        <div class="divider-ornament">
+          <span class="line"></span>
+          <span class="diamond"></span>
+          <span class="line"></span>
+        </div>
+      </div>
+
+      <div class="gallery-grid reveal reveal-delay-1">
+        <!-- FOTO 1 - Besar (span 2 kolom) -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <!-- GANTI src DI BAWAH DENGAN FOTO PREWED KAMU -->
+          <div class="gallery-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 1</span>
+          </div>
+          <div class="gallery-overlay"><span>Pre-Wedding</span></div>
+        </div>
+
+        <!-- FOTO 2 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <div class="gallery-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 2</span>
+          </div>
+          <div class="gallery-overlay"><span>Together</span></div>
+        </div>
+
+        <!-- FOTO 3 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <div class="gallery-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 3</span>
+          </div>
+          <div class="gallery-overlay"><span>Our Moment</span></div>
+        </div>
+
+        <!-- FOTO 4 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <div class="gallery-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 4</span>
+          </div>
+          <div class="gallery-overlay"><span>Smile</span></div>
+        </div>
+
+        <!-- FOTO 5 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <div class="gallery-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 5</span>
+          </div>
+          <div class="gallery-overlay"><span>Happy</span></div>
+        </div>
+
+        <!-- FOTO 6 - Besar (span 2 kolom) -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <div class="gallery-placeholder">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 6</span>
+          </div>
+          <div class="gallery-overlay"><span>Love</span></div>
+        </div>
+
+        <!-- FOTO 7 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <div class="gallery-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 7</span>
+          </div>
+          <div class="gallery-overlay"><span>Joy</span></div>
+        </div>
+
+        <!-- FOTO 8 -->
+        <div class="gallery-item" onclick="openLightbox(this)">
+          <div class="gallery-placeholder">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Foto 8</span>
+          </div>
+          <div class="gallery-overlay"><span>Forever</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LOVE STORY -->
+    <section id="story" class="section">
+      <div class="reveal" style="text-align:center;">
         <p class="section-label">Cerita Kami</p>
         <h2 class="section-title">Perjalanan Cinta</h2>
         <div class="divider-ornament">
@@ -1468,87 +1639,87 @@
           <span class="diamond"></span>
           <span class="line"></span>
         </div>
-        <div class="story-scroll">
-          <div class="timeline">
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">Desember 2021</p>
-              <h4 class="timeline-title">Pertama Bertemu</h4>
-              <p class="timeline-desc">Detik pertama kami bertukar pandang, ada sesuatu yang berbeda. Senyummu yang hangat membekas di hati.</p>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">Jan - Mar 2022</p>
-              <h4 class="timeline-title">Menjalin Hubungan Pertama</h4>
-              <p class="timeline-desc">Kami mulai mendekati satu sama lain. Obrolan malam yang tak kunjung habis. Namun, takdir berkata lain.</p>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">2022 - 2024</p>
-              <h4 class="timeline-title">Berpisah</h4>
-              <p class="timeline-desc">Ada masa dimana kami harus berjalan terpisah. Tetapi hati ini terus berharap dan berdoa.</p>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">Februari 2024</p>
-              <h4 class="timeline-title">Kembali Bersama</h4>
-              <p class="timeline-desc">Allah mendengar doa kami. Dengan hati yang lebih dewasa, kami memutuskan untuk kembali melangkah bersama.</p>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">Maret 2027</p>
-              <h4 class="timeline-title">Lamaran</h4>
-              <p class="timeline-desc">Dengan restu dari kedua keluarga, cincin pun melingkar di jari. Sebuah janji suci.</p>
-            </div>
-            <div class="timeline-item">
-              <div class="timeline-dot"></div>
-              <p class="timeline-date">28 April 2028</p>
-              <h4 class="timeline-title">Hari Bahagia</h4>
-              <p class="timeline-desc">Insya Allah, menyatukan langkah dalam ikatan pernikahan. Sakinah, mawaddah, warahmah. Aamiin.</p>
-            </div>
-          </div>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">Desember 2021</p>
+          <h4 class="timeline-title">Pertama Bertemu</h4>
+          <p class="timeline-desc">Detik pertama kami bertukar pandang, ada sesuatu yang berbeda. Senyummu yang hangat membekas di hati.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">Januari - Maret 2022</p>
+          <h4 class="timeline-title">Menjalin Hubungan Pertama</h4>
+          <p class="timeline-desc">Kami mulai mendekati satu sama lain. Obrolan malam yang tak kunjung habis. Namun, takdir berkata lain.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">2022 - 2025</p>
+          <h4 class="timeline-title">Berpisah</h4>
+          <p class="timeline-desc">Ada masa dimana kami harus berjalan terpisah. Tetapi hati ini terus berharap dan berdoa.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">Februari 2025</p>
+          <h4 class="timeline-title">Kembali Bersama</h4>
+          <p class="timeline-desc">Allah mendengar doa kami. Dengan hati yang lebih dewasa, kami memutuskan untuk kembali melangkah bersama.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">Maret 2027</p>
+          <h4 class="timeline-title">Lamaran</h4>
+          <p class="timeline-desc">Dengan restu dari kedua keluarga, cincin pun melingkar di jari. Sebuah janji suci.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">28 April 2028</p>
+          <h4 class="timeline-title">Hari Bahagia</h4>
+          <p class="timeline-desc">Insya Allah, menyatukan langkah dalam ikatan pernikahan. Sakinah, mawaddah, warahmah. Aamiin.</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- PAGE 4: RSVP -->
-    <div class="page" id="page-rsvp">
-      <div class="page-content">
+    <!-- RSVP -->
+    <section id="rsvp">
+      <div class="reveal" style="text-align:center;">
         <p class="section-label">Konfirmasi Kehadiran</p>
         <h2 class="section-title">RSVP</h2>
         <p class="section-subtitle">Konfirmasi & doa terbaik</p>
         <p class="section-desc">Kehadiran Anda adalah doa dan restu yang sangat berarti bagi kami.</p>
-        <form class="rsvp-form" id="form-rsvp">
-          <div class="form-group">
-            <label for="input-nama">Nama Lengkap</label>
-            <input type="text" id="input-nama" class="form-input" readonly required>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="input-konfirmasi">Konfirmasi</label>
-              <select id="input-konfirmasi" class="form-input" required>
-                <option value="Hadir">Hadir</option>
-                <option value="Tidak Hadir">Tidak Hadir</option>
-                <option value="Masih Ragu">Masih Ragu</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="input-jumlah">Jumlah Tamu</label>
-              <input type="number" id="input-jumlah" class="form-input" value="1" min="1" max="5">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="input-ucapan">Ucapan & Doa</label>
-            <textarea id="input-ucapan" class="form-input" placeholder="Tulis ucapan & doa terbaik untuk Elsa & Julyo..." required></textarea>
-          </div>
-          <button type="submit" class="btn-submit" id="btn-submit">Kirim Konfirmasi & Ucapan</button>
-        </form>
       </div>
-    </div>
 
-    <!-- PAGE 5: WISHES -->
-    <div class="page" id="page-wishes">
-      <div class="page-content">
+      <form class="rsvp-form reveal reveal-delay-1" id="form-rsvp">
+        <div class="form-group">
+          <label for="input-nama">Nama Lengkap</label>
+          <input type="text" id="input-nama" class="form-input" readonly required>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="input-konfirmasi">Konfirmasi</label>
+            <select id="input-konfirmasi" class="form-input" required>
+              <option value="Hadir">Hadir</option>
+              <option value="Tidak Hadir">Tidak Hadir</option>
+              <option value="Masih Ragu">Masih Ragu</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="input-jumlah">Jumlah Tamu</label>
+            <input type="number" id="input-jumlah" class="form-input" value="1" min="1" max="5">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-ucapan">Ucapan & Doa</label>
+          <textarea id="input-ucapan" class="form-input" placeholder="Tulis ucapan & doa terbaik untuk Elsa & Julyo..." required></textarea>
+        </div>
+        <button type="submit" class="btn-submit" id="btn-submit">Kirim Konfirmasi & Ucapan</button>
+      </form>
+    </section>
+
+    <!-- WISHES -->
+    <section id="wishes" class="section">
+      <div class="reveal" style="text-align:center;">
         <p class="section-label">Ucapan & Doa</p>
         <h2 class="section-title">Wall of Wishes</h2>
         <div class="divider-ornament">
@@ -1556,150 +1727,116 @@
           <span class="diamond"></span>
           <span class="line"></span>
         </div>
-        <div class="wishes-scroll" id="list-ucapan-content">
-          <div class="wishes-empty">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto 12px;color:var(--brown-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-            <p style="font-family:var(--font-classic);font-size:15px;">Belum ada ucapan.<br>Jadilah yang pertama!</p>
-          </div>
+      </div>
+
+      <div class="wishes-scroll reveal reveal-delay-1" id="list-ucapan-content">
+        <div class="wishes-empty">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="margin:0 auto 12px;color:var(--brown-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <p style="font-family:var(--font-classic);font-size:15px;">Belum ada ucapan.<br>Jadilah yang pertama!</p>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- PAGE 6: GIFT -->
-    <div class="page" id="page-gift">
-      <div class="page-content">
+    <!-- GIFT -->
+    <section id="gift" class="section">
+      <div class="reveal" style="text-align:center;">
         <p class="section-label">Amplop Digital</p>
         <h2 class="section-title">Wedding Gift</h2>
         <p class="section-subtitle">Tanda kasih</p>
         <p class="section-desc">Doa restu Anda merupakan karunia yang sangat berarti.</p>
-        <div class="gift-card">
-          <div class="gift-bank-logo">BCA</div>
-          <p class="gift-bank-name">Bank BCA</p>
-          <p class="gift-account-name">a.n. Elsa & Julyo</p>
-          <div class="gift-account-number">9012 XXXX XXXX</div>
-          <br>
-          <button class="btn-copy" onclick="copyRekening('9012XXXXXXXX')">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-            Salin Nomor Rekening
-          </button>
-        </div>
       </div>
-    </div>
 
-    <!-- PAGE 7: CLOSING -->
-    <div class="page" id="page-closing">
-      <div class="page-content">
+      <div class="gift-card reveal reveal-delay-1">
+        <div class="gift-bank-logo">BCA</div>
+        <p class="gift-bank-name">Bank BCA</p>
+        <p class="gift-account-name">a.n. Elsa & Julyo</p>
+        <div class="gift-account-number">9012 XXXX XXXX</div>
+        <br>
+        <button class="btn-copy" onclick="copyRekening('9012XXXXXXXX')">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Salin Nomor Rekening
+        </button>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <section id="closing" class="section">
+      <div class="reveal">
         <div class="closing-ornament">
           <svg width="80" height="40" viewBox="0 0 80 40" fill="none"><path d="M0 20 L15 20 L20 10 L25 20 L30 10 L35 20 L40 10 L45 20 L50 10 L55 20 L60 10 L65 20 L70 10 L75 20 L80 20" stroke="#c9a96e" stroke-width="1" fill="none" opacity="0.5"/><circle cx="40" cy="30" r="3" stroke="#c9a96e" stroke-width="1" fill="none" opacity="0.4"/></svg>
         </div>
         <p class="closing-message">Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.</p>
         <p class="closing-message" style="font-size:15px;margin-top:-6px;">Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.</p>
         <h3 class="closing-names">Elsa & Julyo</h3>
+        <div class="closing-ring-icon">
+          <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin">
+        </div>
         <div class="closing-footer">
           <p>Made with ❤ for our special day</p>
         </div>
       </div>
-    </div>
+    </section>
 
-  </div>
+  </main>
 
   <!-- ========================================
        JAVASCRIPT
        ======================================== -->
   <script>
-    /* ========================================
-       CONFIG & STATE
-       ======================================== */
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxyqq3ts-Q2jMVnJCnNGCzWf2DRvZoYs63vMRqUFsvTwaBq8an6V4kR1lOEOw48HyZu/exec";
     const WEDDING_DATE = new Date("2028-04-28T08:00:00+07:00");
-    const TOTAL_PAGES = 8;
 
     let isPlaying = false;
-    let currentPage = 0;
-    let isTransitioning = false;
     let countdownInterval = null;
     let ucapanRefreshInterval = null;
-    let swipeHintTimeout = null;
 
-    const pages = [];
-    const navDots = [];
-    const piDots = [];
-
-    /* ========================================
-       INIT
-       ======================================== */
     document.addEventListener("DOMContentLoaded", () => {
-      // Cache DOM elements
-      for (let i = 0; i < TOTAL_PAGES; i++) {
-        pages.push(document.querySelectorAll('.page')[i]);
-        navDots.push(document.querySelectorAll('.nav-dot')[i]);
-        piDots.push(document.querySelectorAll('.pi-dot')[i]);
-      }
-
-      // Nama tamu dari URL
       const urlParams = new URLSearchParams(window.location.search);
       const namaTamu = urlParams.get('to') || "Tamu Undangan";
       document.getElementById("nama-tamu").textContent = namaTamu;
       document.getElementById("input-nama").value = namaTamu;
 
-      // Event listeners
       document.getElementById("btn-open").addEventListener("click", bukaUndangan);
       document.getElementById("btn-music").addEventListener("click", toggleAudio);
       document.getElementById("form-rsvp").addEventListener("submit", handleRSVPSubmit);
+      document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+      document.getElementById("lightbox").addEventListener("click", (e) => {
+        if (e.target === e.currentTarget) closeLightbox();
+      });
+      document.addEventListener("keydown", (e) => { if (e.key === 'Escape') closeLightbox(); });
 
-      // Nav dots
-      navDots.forEach((dot, i) => {
+      document.querySelectorAll('.nav-dot').forEach(dot => {
         dot.addEventListener("click", () => {
-          if (!isTransitioning && i !== currentPage) {
-            goToPage(i, i > currentPage ? 'next' : 'prev');
-          }
+          const section = dot.dataset.section;
+          const el = document.getElementById(section);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
         });
       });
 
-      // Touch/Swipe
-      initTouchHandlers();
-
-      // Keyboard
-      document.addEventListener("keydown", handleKeyboard);
-
-      // Mouse wheel
-      initWheelHandler();
+      window.addEventListener("scroll", updateScrollProgress, { passive: true });
+      initScrollReveal();
     });
 
-    /* ========================================
-       OPEN INVITATION
-       ======================================== */
     function bukaUndangan() {
       const cover = document.getElementById("cover-overlay");
       const audio = document.getElementById("bg-music");
 
       cover.classList.add("closing");
-
       setTimeout(() => createConfetti(), 500);
 
       setTimeout(() => {
         cover.style.display = "none";
-        
-        // Show navigation
+        document.getElementById("main-content").classList.remove("hidden");
         document.getElementById("nav-dots").classList.add("visible");
-        document.getElementById("page-indicator").classList.add("visible");
         document.getElementById("btn-music").classList.add("visible");
-        
-        // Show swipe hint
-        document.getElementById("swipe-hint").classList.add("visible");
-        swipeHintTimeout = setTimeout(() => {
-          document.getElementById("swipe-hint").classList.add("hidden-hint");
-        }, 4000);
 
-        // Start countdown
         startCountdown();
-
-        // Load wishes
         loadDaftarUcapan();
         ucapanRefreshInterval = setInterval(loadDaftarUcapan, 15000);
+
+        setTimeout(checkReveal, 100);
       }, 1000);
 
-      // Play music
       if (audio) {
         audio.play().then(() => {
           isPlaying = true;
@@ -1709,226 +1846,14 @@
       }
     }
 
-    /* ========================================
-       PAGE NAVIGATION - CORE
-       ======================================== */
-    function goToPage(index, direction) {
-      if (isTransitioning || index < 0 || index >= TOTAL_PAGES || index === currentPage) return;
-      
-      isTransitioning = true;
-
-      const oldPage = pages[currentPage];
-      const newPage = pages[index];
-
-      // Determine exit class for old page
-      const exitClass = direction === 'next' ? 'exit-left' : 'exit-right';
-      
-      // Prepare new page entry position
-      if (direction === 'next') {
-        newPage.className = 'page'; // Reset
-        newPage.style.transform = 'translateX(80px) scale(0.95)';
-        newPage.style.opacity = '0';
-        newPage.style.visibility = 'hidden';
-      } else {
-        newPage.className = 'page';
-        newPage.style.transform = 'translateX(-80px) scale(0.95)';
-        newPage.style.opacity = '0';
-        newPage.style.visibility = 'hidden';
-      }
-
-      // Force reflow
-      void newPage.offsetWidth;
-
-      // Animate old page out
-      oldPage.classList.remove('active');
-      oldPage.classList.add(exitClass);
-
-      // Animate new page in
-      newPage.classList.add('active');
-      newPage.style.transform = '';
-      newPage.style.opacity = '';
-      newPage.style.visibility = '';
-
-      // Scroll new page to top if needed
-      newPage.scrollTop = 0;
-
-      // Update state
-      currentPage = index;
-      updateNavigation();
-
-      // Hide swipe hint after first navigation
-      if (swipeHintTimeout) {
-        clearTimeout(swipeHintTimeout);
-        document.getElementById("swipe-hint").classList.add("hidden-hint");
-      }
-
-      // Transition end
-      setTimeout(() => {
-        oldPage.classList.remove(exitClass);
-        isTransitioning = false;
-      }, 750);
-    }
-
-    function nextPage() {
-      if (currentPage < TOTAL_PAGES - 1) {
-        goToPage(currentPage + 1, 'next');
-      }
-    }
-
-    function prevPage() {
-      if (currentPage > 0) {
-        goToPage(currentPage - 1, 'prev');
-      }
-    }
-
-    function updateNavigation() {
-      // Update nav dots
-      navDots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentPage);
-      });
-
-      // Update page indicator dots
-      piDots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentPage);
-      });
-    }
-
-    /* ========================================
-       TOUCH/SWIPE HANDLERS
-       ======================================== */
-    let touchStartX = 0;
-    let touchStartY = 0;
-    let touchStartTime = 0;
-
-    function initTouchHandlers() {
-      const container = document.getElementById("pages-container");
-
-      container.addEventListener("touchstart", (e) => {
-        touchStartX = e.touches[0].clientX;
-        touchStartY = e.touches[0].clientY;
-        touchStartTime = Date.now();
-      }, { passive: true });
-
-      container.addEventListener("touchend", (e) => {
-        const touchEndX = e.changedTouches[0].clientX;
-        const touchEndY = e.changedTouches[0].clientY;
-        const diffX = touchStartX - touchEndX;
-        const diffY = touchStartY - touchEndY;
-        const duration = Date.now() - touchStartTime;
-
-        // Only horizontal swipes with minimum distance and speed
-        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50 && duration < 500) {
-          if (diffX > 0) {
-            nextPage(); // Swipe left = next
-          } else {
-            prevPage(); // Swipe right = prev
-          }
-        }
-        // Vertical swipe mapped to page navigation
-        else if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 60 && duration < 500) {
-          // Check if the current page's internal scroll is at bounds
-          const activePage = pages[currentPage];
-          const atTop = activePage.scrollTop <= 5;
-          const atBottom = activePage.scrollTop + activePage.clientHeight >= activePage.scrollHeight - 5;
-
-          if (diffY > 0 && atTop) {
-            prevPage(); // Swipe up at top = prev
-          } else if (diffY < 0 && atBottom) {
-            nextPage(); // Swipe down at bottom = next
-          }
-        }
-      }, { passive: true });
-    }
-
-    /* ========================================
-       KEYBOARD HANDLER
-       ======================================== */
-    function handleKeyboard(e) {
-      if (document.getElementById("cover-overlay").style.display !== "none") return;
-      
-      // Don't intercept if typing in form
-      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') return;
-
-      switch(e.key) {
-        case 'ArrowDown':
-        case 'ArrowRight':
-          e.preventDefault();
-          nextPage();
-          break;
-        case 'ArrowUp':
-        case 'ArrowLeft':
-          e.preventDefault();
-          prevPage();
-          break;
-      }
-    }
-
-    /* ========================================
-       MOUSE WHEEL HANDLER
-       ======================================== */
-    function initWheelHandler() {
-      let wheelTimeout = null;
-      let wheelAccumulator = 0;
-      const WHEEL_THRESHOLD = 50;
-
-      document.addEventListener("wheel", (e) => {
-        if (document.getElementById("cover-overlay").style.display !== "none") return;
-        
-        // Don't intercept if hovering over scrollable content that needs scroll
-        const activePage = pages[currentPage];
-        const scrollableElements = activePage.querySelectorAll('.story-scroll, .wishes-scroll');
-        let isOverScrollable = false;
-        
-        scrollableElements.forEach(el => {
-          const rect = el.getBoundingClientRect();
-          if (e.clientX >= rect.left && e.clientX <= rect.right && 
-              e.clientY >= rect.top && e.clientY <= rect.bottom) {
-            // Check if element can still scroll in wheel direction
-            const atTop = el.scrollTop <= 0;
-            const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 1;
-            
-            if ((e.deltaY < 0 && !atTop) || (e.deltaY > 0 && !atBottom)) {
-              isOverScrollable = true;
-            }
-          }
-        });
-
-        if (isOverScrollable) return;
-
-        e.preventDefault();
-
-        wheelAccumulator += e.deltaY;
-
-        if (wheelTimeout) clearTimeout(wheelTimeout);
-
-        wheelTimeout = setTimeout(() => {
-          if (Math.abs(wheelAccumulator) >= WHEEL_THRESHOLD) {
-            if (wheelAccumulator > 0) {
-              nextPage();
-            } else {
-              prevPage();
-            }
-          }
-          wheelAccumulator = 0;
-        }, 100);
-
-      }, { passive: false });
-    }
-
-    /* ========================================
-       CONFETTI
-       ======================================== */
     function createConfetti() {
       const container = document.getElementById("confetti-container");
       const colors = ['#c9a96e', '#e8d5a3', '#8b6914', '#6b4226', '#4a3222', '#f0e0b8'];
-      
       for (let i = 0; i < 50; i++) {
         const piece = document.createElement("div");
         piece.className = "confetti-piece";
-        
         const color = colors[Math.floor(Math.random() * colors.length)];
         const size = Math.random() * 8 + 4;
-        
         piece.style.left = Math.random() * 100 + "%";
         piece.style.width = size + "px";
         piece.style.height = size + "px";
@@ -1936,20 +1861,16 @@
         piece.style.borderRadius = Math.random() > 0.5 ? "50%" : "2px";
         piece.style.animationDelay = Math.random() * 1.5 + "s";
         piece.style.animationDuration = (Math.random() * 2 + 2) + "s";
-        
         container.appendChild(piece);
         requestAnimationFrame(() => piece.classList.add("animate"));
         setTimeout(() => piece.remove(), 5000);
       }
     }
 
-    /* ========================================
-       MUSIC TOGGLE
-       ======================================== */
     function toggleAudio() {
       const audio = document.getElementById("bg-music");
-      const btn = document.getElementById("btn-music");
       const icon = document.getElementById("music-icon");
+      const btn = document.getElementById("btn-music");
 
       if (isPlaying) {
         audio.pause();
@@ -1964,14 +1885,16 @@
       isPlaying = !isPlaying;
     }
 
-    /* ========================================
-       COUNTDOWN
-       ======================================== */
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = (scrollTop / docHeight) * 100;
+      document.getElementById("scroll-progress").style.width = progress + "%";
+    }
+
     function startCountdown() {
       function update() {
-        const now = new Date().getTime();
-        const distance = WEDDING_DATE.getTime() - now;
-
+        const distance = WEDDING_DATE.getTime() - new Date().getTime();
         if (distance <= 0) {
           ["cd-days", "cd-hours", "cd-minutes", "cd-seconds"].forEach(id => {
             document.getElementById(id).textContent = "00";
@@ -1979,20 +1902,72 @@
           if (countdownInterval) clearInterval(countdownInterval);
           return;
         }
-
         document.getElementById("cd-days").textContent = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
         document.getElementById("cd-hours").textContent = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
         document.getElementById("cd-minutes").textContent = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
         document.getElementById("cd-seconds").textContent = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
       }
-
       update();
       countdownInterval = setInterval(update, 1000);
     }
 
-    /* ========================================
-       API FUNCTIONS
-       ======================================== */
+    function initScrollReveal() {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        observer.observe(el);
+      });
+
+      const sections = ['hero', 'countdown', 'acara', 'galeri', 'story', 'rsvp', 'wishes', 'gift', 'closing'];
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            document.querySelectorAll('.nav-dot').forEach(d => d.classList.remove('active'));
+            const activeDot = document.querySelector(`.nav-dot[data-section="${entry.target.id}"]`);
+            if (activeDot) activeDot.classList.add('active');
+          }
+        });
+      }, { threshold: 0.35 });
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) navObserver.observe(el);
+      });
+    }
+
+    function checkReveal() {
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+        if (el.getBoundingClientRect().top < window.innerHeight * 0.88) {
+          el.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener("scroll", () => {
+      if (!document.getElementById("main-content").classList.contains("hidden")) {
+        checkReveal();
+      }
+    }, { passive: true });
+
+    // LIGHTBOX
+    function openLightbox(element) {
+      const img = element.querySelector('img');
+      if (!img) return;
+      document.getElementById("lightbox-img").src = img.src;
+      document.getElementById("lightbox").classList.add("active");
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById("lightbox").classList.remove("active");
+      document.body.style.overflow = '';
+    }
+
+    // API
     async function submitRSVPData(payload) {
       try {
         const response = await fetch(GAS_URL, { method: "POST", body: JSON.stringify(payload) });
@@ -2011,22 +1986,14 @@
       }
     }
 
-    /* ========================================
-       RSVP SUBMIT
-       ======================================== */
     async function handleRSVPSubmit(e) {
       e.preventDefault();
-
-      const btnSubmit = document.getElementById("btn-submit");
+      const btn = document.getElementById("btn-submit");
       const ucapan = document.getElementById("input-ucapan").value.trim();
+      if (!ucapan) { showToast("Silakan tulis ucapan & doa", "error"); return; }
 
-      if (!ucapan) {
-        showToast("Silakan tulis ucapan & doa", "error");
-        return;
-      }
-
-      btnSubmit.disabled = true;
-      btnSubmit.textContent = "Mengirim...";
+      btn.disabled = true;
+      btn.textContent = "Mengirim...";
 
       const result = await submitRSVPData({
         nama: document.getElementById("input-nama").value.trim(),
@@ -2035,8 +2002,8 @@
         ucapan: ucapan
       });
 
-      btnSubmit.disabled = false;
-      btnSubmit.textContent = "Kirim Konfirmasi & Ucapan";
+      btn.disabled = false;
+      btn.textContent = "Kirim Konfirmasi & Ucapan";
 
       if (result.status === "success") {
         showToast("Terima kasih! Ucapan berhasil terkirim ❤", "success");
@@ -2049,9 +2016,6 @@
       }
     }
 
-    /* ========================================
-       LOAD WISHES
-       ======================================== */
     async function loadDaftarUcapan() {
       const container = document.getElementById("list-ucapan-content");
       const result = await fetchUcapanData();
@@ -2090,9 +2054,6 @@
       return div.innerHTML;
     }
 
-    /* ========================================
-       COPY REKENING
-       ======================================== */
     function copyRekening(nomor) {
       navigator.clipboard.writeText(nomor).then(() => {
         showToast("Nomor rekening berhasil disalin!", "info");
@@ -2107,9 +2068,6 @@
       });
     }
 
-    /* ========================================
-       TOAST
-       ======================================== */
     function showToast(message, type = "info") {
       const toast = document.getElementById("toast");
       toast.textContent = message;
