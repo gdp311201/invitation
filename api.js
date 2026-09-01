@@ -1,5 +1,5 @@
 // Ganti URL di bawah dengan URL Deploy Web App Apps Script kamu
-const GAS_URL = "https://script.google.com/macros/s/AKfycbx.../exec";
+const GAS_URL = "https://script.google.com/macros/s/AKfycbxyqq3ts-Q2jMVnJCnNGCzWf2DRvZoYs63vMRqUFsvTwaBq8an6V4kR1lOEOw48HyZu/exec";
 
 // 1. Fungsi Kirim RSVP ke Google Sheets
 async function submitRSVPData(payload) {
