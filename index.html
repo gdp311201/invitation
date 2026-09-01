@@ -11,7 +11,7 @@
   
   <style>
     /* ========================================
-       CSS VARIABLES - TEMA JAWA KLASIK
+       CSS VARIABLES
        ======================================== */
     :root {
       --brown-deep: #1a1108;
@@ -53,23 +53,16 @@
       line-height: 1.7; 
       overflow-x: hidden; 
       -webkit-font-smoothing: antialiased;
+      /* BACKGROUND ORNAMEN KONTINU - PALE WAYANG/BUNGA */
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cdefs%3E%3Cstyle%3E.ornament%7Bfill:%23c9a96e;opacity:0.04;%7D%3C/style%3E%3C/defs%3E%3C!-- Bunga besar 1 --%3E%3Cg class='ornament' transform='translate(50,50)'%3E%3Cpath d='M0-15C8-15 15-8 15 0S8 15 0 15-15 8-15 0-8-15 0-15z'/%3E%3Cpath d='M0-15C8-15 15-8 15 0S8 15 0 15-15 8-15 0-8-15 0-15z' transform='rotate(60)'/%3E%3Cpath d='M0-15C8-15 15-8 15 0S8 15 0 15-15 8-15 0-8-15 0-15z' transform='rotate(120)'/%3E%3Ccircle cx='0' cy='0' r='4'/%3E%3C/g%3E%3C!-- Bunga kecil --%3E%3Cg class='ornament' transform='translate(200,120) scale(0.6)'%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(72)'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(144)'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(216)'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(288)'/%3E%3Ccircle cx='0' cy='0' r='3'/%3E%3C/g%3E%3C!-- Wayang outline 1 --%3E%3Cg class='ornament' transform='translate(320,280) scale(0.8)'%3E%3Cpath d='M0-30C-5-25-15-20-18-10-20-5-15 5-10 10-5 15 5 20 10 15 15 10 20 5 18-5 15-10 5-20 0-25z'/%3E%3Ccircle cx='0' cy='-10' r='3'/%3E%3Cpath d='M-5 10L-15 30M5 10L15 30M0 15L0 35' stroke='%23c9a96e' fill='none' stroke-width='1'/%3E%3C/g%3E%3C!-- Bunga 2 --%3E%3Cg class='ornament' transform='translate(100,320) scale(0.7)'%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(72)'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(144)'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(216)'/%3E%3Cpath d='M0-12C6-12 12-6 12 0S6 12 0 12-12 6-12 0-6-12 0-12z' transform='rotate(288)'/%3E%3Ccircle cx='0' cy='0' r='3'/%3E%3C/g%3E%3C!-- Wayang outline 2 --%3E%3Cg class='ornament' transform='translate(350,80) scale(0.6)'%3E%3Cpath d='M0-30C-5-25-15-20-18-10-20-5-15 5-10 10-5 15 5 20 10 15 15 10 20 5 18-5 15-10 5-20 0-25z'/%3E%3Ccircle cx='0' cy='-10' r='3'/%3E%3Cpath d='M-5 10L-15 30M5 10L15 30M0 15L0 35' stroke='%23c9a96e' fill='none' stroke-width='1'/%3E%3C/g%3E%3C!-- Daun dekoratif --%3E%3Cg class='ornament' transform='translate(280,180) rotate(30)'%3E%3Cpath d='M0 0C-8-5-12-15-8-22-4-18 0-10 0 0z'/%3E%3Cpath d='M0 0C8-5 12-15 8-22 4-18 0-10 0 0z'/%3E%3C/g%3E%3C!-- Lingkaran dekoratif --%3E%3Ccircle class='ornament' cx='150' cy='220' r='8' fill='none' stroke='%23c9a96e' stroke-width='0.5'/%3E%3Ccircle class='ornament' cx='250' cy='350' r='6' fill='none' stroke='%23c9a96e' stroke-width='0.5'/%3E%3C/g%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-attachment: fixed;
     }
     .hidden { display: none !important; }
     ::selection { background: var(--gold-light); color: var(--brown-dark); }
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--cream); }
     ::-webkit-scrollbar-thumb { background: var(--brown-pale); border-radius: 3px; }
-
-    /* ========================================
-       BATIK PATTERN
-       ======================================== */
-    .batik-pattern {
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.05'%3E%3Cpath d='M30 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15C15 6.716 21.716 0 30 0zm0 30c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm-30 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15C-6.716 60 0 53.284 0 45c0-8.284 6.716-15 0-15zm60 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
-
-    .batik-pattern-dark {
-      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a96e' fill-opacity='0.07'%3E%3Cpath d='M30 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15C15 6.716 21.716 0 30 0zm0 30c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15zm-30 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15C-6.716 60 0 53.284 0 45c0-8.284 6.716-15 0-15zm60 0c8.284 0 15 6.716 15 15 0 8.284-6.716 15-15 15-8.284 0-15-6.716-15-15 0-8.284 6.716-15 15-15z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-    }
 
     /* ========================================
        ANIMATIONS
@@ -105,43 +98,14 @@
       75% { transform: scale(1.06); }
     }
 
-    /* Scroll Reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-left {
-      opacity: 0;
-      transform: translateX(-40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal-left.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .reveal-right {
-      opacity: 0;
-      transform: translateX(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal-right.active {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .reveal-scale {
-      opacity: 0;
-      transform: scale(0.85);
-      transition: opacity 0.8s ease, transform 0.8s ease;
-    }
-    .reveal-scale.active {
-      opacity: 1;
-      transform: scale(1);
-    }
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    .reveal-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal-left.active { opacity: 1; transform: translateX(0); }
+    .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal-right.active { opacity: 1; transform: translateX(0); }
+    .reveal-scale { opacity: 0; transform: scale(0.85); transition: opacity 0.8s ease, transform 0.8s ease; }
+    .reveal-scale.active { opacity: 1; transform: scale(1); }
     .reveal-delay-1 { transition-delay: 0.15s; }
     .reveal-delay-2 { transition-delay: 0.3s; }
     .reveal-delay-3 { transition-delay: 0.45s; }
@@ -179,7 +143,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(26,17,8,0.6), rgba(44,30,15,0.4), rgba(26,17,8,0.7));
+      background: linear-gradient(135deg, rgba(26,17,8,0.5), rgba(44,30,15,0.3), rgba(26,17,8,0.6));
       z-index: 1;
     }
 
@@ -194,7 +158,7 @@
 
     .cover-float {
       position: absolute;
-      opacity: 0.12;
+      opacity: 0.1;
       animation: float 8s ease-in-out infinite;
       pointer-events: none;
       z-index: 0;
@@ -208,7 +172,30 @@
       max-width: 420px;
     }
 
-    .cover-ornament-top { margin-bottom: 30px; opacity: 0.5; }
+    /* WAYANG IMAGE DI COVER */
+    .cover-wayang {
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+
+    .cover-wayang img {
+      width: 100px;
+      height: auto;
+      opacity: 0.7;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    }
+
+    /* CINCIN LOGO DI COVER */
+    .cover-ring-logo {
+      margin-bottom: 24px;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .cover-ring-logo img {
+      width: 60px;
+      height: auto;
+      opacity: 0.8;
+    }
 
     .cover-subtitle {
       font-size: 11px;
@@ -442,10 +429,7 @@
       transition: opacity 0.4s ease;
     }
 
-    .lightbox.active {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .lightbox.active { opacity: 1; pointer-events: all; }
 
     .lightbox img {
       max-width: 90%;
@@ -542,7 +526,7 @@
     }
 
     /* ========================================
-       HERO SECTION - DENGAN BACKGROUND FOTO
+       HERO SECTION
        ======================================== */
     #hero {
       min-height: 100vh;
@@ -717,11 +701,11 @@
       z-index: 3;
     }
 
-    #countdown.batik-pattern::before {
+    #countdown::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(26,17,8,0.85), rgba(44,30,15,0.7));
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cg fill='%23c9a96e' fill-opacity='0.05'%3E%3Ccircle cx='100' cy='100' r='60'/%3E%3Ccircle cx='100' cy='100' r='30'/%3E%3C/g%3E%3C/svg%3E");
       z-index: 1;
     }
 
@@ -811,7 +795,7 @@
       justify-content: center;
       margin: 0 auto 16px;
       overflow: hidden;
-      padding: 10px;
+      padding: 12px;
     }
 
     .acara-icon img {
@@ -873,8 +857,8 @@
 
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 200px);
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 220px);
       gap: 12px;
     }
 
@@ -921,11 +905,8 @@
       font-weight: 500;
     }
 
-    /* Span 2 kolom untuk item besar */
     .gallery-item:nth-child(1) { grid-column: span 2; }
-    .gallery-item:nth-child(6) { grid-column: span 2; }
 
-    /* Placeholder style */
     .gallery-placeholder {
       width: 100%;
       height: 100%;
@@ -1291,6 +1272,7 @@
     @media (max-width: 640px) {
       .cover-names { font-size: 34px; }
       .cover-ampersand { font-size: 42px; }
+      .cover-wayang img { width: 70px; }
       .hero-names { font-size: 42px; }
       .hero-ampersand { font-size: 50px; }
       .hero-bismillah { font-size: 18px; }
@@ -1307,17 +1289,14 @@
       
       .gallery-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(4, 160px);
+        grid-template-rows: repeat(3, 150px);
       }
       .gallery-item:nth-child(1) { grid-column: span 2; }
-      .gallery-item:nth-child(6) { grid-column: span 1; }
     }
 
     @media (min-width: 768px) {
       .section { padding: 100px 40px; }
-      .gallery-grid {
-        grid-template-rows: repeat(2, 240px);
-      }
+      .gallery-grid { grid-template-rows: repeat(2, 240px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1329,7 +1308,7 @@
     }
   </style>
 </head>
-<body class="batik-pattern">
+<body>
 
   <!-- SCROLL PROGRESS -->
   <div class="scroll-progress" id="scroll-progress"></div>
@@ -1345,7 +1324,7 @@
   <!-- ========================================
        COVER OVERLAY
        ======================================== -->
-  <div id="cover-overlay" class="batik-pattern-dark">
+  <div id="cover-overlay">
     <div class="cover-float" style="top:10%;left:10%;animation-delay:0s;">
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18" stroke="#c9a96e" stroke-width="1"/></svg>
     </div>
@@ -1355,14 +1334,24 @@
     <div class="cover-float" style="bottom:25%;left:18%;animation-delay:4s;">
       <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="9" stroke="#c9a96e" stroke-width="1"/><circle cx="11" cy="11" r="4" stroke="#c9a96e" stroke-width="1"/></svg>
     </div>
-    <div class="cover-float" style="bottom:12%;right:12%;animation-delay:6s;">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="#c9a96e" stroke-width="1"/></svg>
-    </div>
 
     <div class="cover-content">
-      <div class="cover-ornament-top">
-        <svg viewBox="0 0 120 30" fill="none"><path d="M0 15 L20 15 L25 5 L30 15 L35 5 L40 15 L45 5 L50 15 L55 5 L60 15 L65 5 L70 15 L75 5 L80 15 L85 5 L90 15 L95 5 L100 15 L105 5 L110 15 L120 15" stroke="#c9a96e" stroke-width="1.5" fill="none"/><circle cx="60" cy="24" r="2" fill="#c9a96e" opacity="0.5"/></svg>
+      <!-- WAYANG IMAGE - GANTI SRC DENGAN GAMBAR WAYANG KAMU -->
+      <div class="cover-wayang">
+        <!-- 
+          ============================================
+          GANTI src DI BAWAH DENGAN LINK GAMBAR WAYANG KAMU
+          Contoh: src="https://i.ibb.co/xxxxx/wayang.png"
+          ============================================
+        -->
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='120' viewBox='0 0 100 120'%3E%3Cg fill='%23c9a96e' opacity='0.7'%3E%3C!-- Wayang silhouette --%3E%3Cpath d='M50 5C40 5 32 12 30 22C25 20 18 24 16 30C12 32 10 38 12 44C8 48 8 55 12 60C8 65 10 72 15 76C14 82 18 88 24 90C26 96 32 100 40 100C42 108 48 112 55 112C60 108 64 102 66 96C72 94 76 88 78 82C84 78 86 70 84 64C88 58 88 50 84 44C86 38 82 32 76 30C74 24 68 20 62 20C60 12 56 5 50 5z'/%3E%3Ccircle cx='42' cy='35' r='4' fill='%232c1e0f'/%3E%3Ccircle cx='58' cy='35' r='4' fill='%232c1e0f'/%3E%3Cpath d='M45 55Q50 65 55 55' stroke='%232c1e0f' stroke-width='2' fill='none'/%3E%3C!-- Mahkota --%3E%3Cpath d='M35 18L40 8L45 15L50 5L55 15L60 8L65 18' stroke='%23c9a96e' stroke-width='2' fill='none'/%3E%3C!-- Badan --%3E%3Cpath d='M30 70L25 110M70 70L75 110M50 60L50 115' stroke='%23c9a96e' stroke-width='3' fill='none'/%3E%3C/g%3E%3C/svg%3E" alt="Wayang">
       </div>
+
+      <!-- CINCIN LOGO -->
+      <div class="cover-ring-logo">
+        <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin">
+      </div>
+
       <p class="cover-subtitle">The Wedding Of</p>
       <div class="cover-names">
         Elsa
@@ -1412,7 +1401,7 @@
        ======================================== -->
   <main id="main-content" class="hidden">
 
-    <!-- HERO SECTION -->
+    <!-- HERO -->
     <section id="hero">
       <div class="hero-bg">
         <img src="https://i.ibb.co/yn3gF6pv/7ae81c3544293730ff3ade48d6a112da.jpg" alt="Background">
@@ -1420,23 +1409,19 @@
       
       <div class="hero-content">
         <p class="hero-bismillah reveal">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>
-        
         <h1 class="hero-names reveal reveal-delay-1">
           Elsa
           <span class="hero-ampersand">&</span>
           Julyo
         </h1>
-        
         <div class="hero-date-line reveal reveal-delay-2">
           <span class="dash"></span>
           <span class="hero-date">28 April 2028</span>
           <span class="dash"></span>
         </div>
-
         <div class="hero-ring-icon reveal-scale reveal-delay-3">
           <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin">
         </div>
-        
         <div class="hero-quote reveal reveal-delay-4">
           <p>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya."</p>
           <cite>QS. Ar-Rum: 21</cite>
@@ -1450,7 +1435,7 @@
     </section>
 
     <!-- COUNTDOWN -->
-    <div id="countdown" class="reveal batik-pattern">
+    <div id="countdown" class="reveal">
       <p class="section-label">Menghitung Hari</p>
       <h2 class="section-title">Menuju Hari Bahagia</h2>
       <div class="divider-ornament">
@@ -1541,7 +1526,7 @@
       </div>
     </section>
 
-    <!-- GALERI FOTO -->
+    <!-- GALERI - 7 FOTO -->
     <section id="galeri" class="section">
       <div class="reveal" style="text-align:center;">
         <p class="section-label">Galeri</p>
@@ -1556,7 +1541,6 @@
       <div class="gallery-grid reveal reveal-delay-1">
         <!-- FOTO 1 - Besar (span 2 kolom) -->
         <div class="gallery-item" onclick="openLightbox(this)">
-          <!-- GANTI src DI BAWAH DENGAN FOTO PREWED KAMU -->
           <div class="gallery-placeholder">
             <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             <span>Foto 1</span>
@@ -1600,10 +1584,10 @@
           <div class="gallery-overlay"><span>Happy</span></div>
         </div>
 
-        <!-- FOTO 6 - Besar (span 2 kolom) -->
+        <!-- FOTO 6 -->
         <div class="gallery-item" onclick="openLightbox(this)">
           <div class="gallery-placeholder">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             <span>Foto 6</span>
           </div>
           <div class="gallery-overlay"><span>Love</span></div>
@@ -1614,15 +1598,6 @@
           <div class="gallery-placeholder">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
             <span>Foto 7</span>
-          </div>
-          <div class="gallery-overlay"><span>Joy</span></div>
-        </div>
-
-        <!-- FOTO 8 -->
-        <div class="gallery-item" onclick="openLightbox(this)">
-          <div class="gallery-placeholder">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            <span>Foto 8</span>
           </div>
           <div class="gallery-overlay"><span>Forever</span></div>
         </div>
@@ -1953,7 +1928,6 @@
       }
     }, { passive: true });
 
-    // LIGHTBOX
     function openLightbox(element) {
       const img = element.querySelector('img');
       if (!img) return;
@@ -1967,7 +1941,6 @@
       document.body.style.overflow = '';
     }
 
-    // API
     async function submitRSVPData(payload) {
       try {
         const response = await fetch(GAS_URL, { method: "POST", body: JSON.stringify(payload) });
