@@ -96,11 +96,6 @@
       to { opacity: 1; }
     }
 
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @keyframes float {
       0%, 100% { transform: translateY(0) rotate(0deg); }
       33% { transform: translateY(-10px) rotate(2deg); }
@@ -122,6 +117,11 @@
       25% { transform: scale(1.1); }
       50% { transform: scale(1); }
       75% { transform: scale(1.05); }
+    }
+
+    @keyframes ringGlow {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(201,169,110,0.3)); }
+      50% { filter: drop-shadow(0 0 20px rgba(201,169,110,0.6)); }
     }
 
     /* Scroll Reveal Classes */
@@ -149,33 +149,41 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, var(--brown-deep) 0%, var(--brown-dark) 40%, var(--brown) 100%);
+      background: var(--brown-deep);
       transition: opacity 0.8s ease, transform 0.8s ease;
       overflow: hidden;
+    }
+
+    /* Background gambar blur */
+    #cover-overlay::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background-image: url('https://i.ibb.co/yn3gF6pv/7ae81c3544293730ff3ade48d6a112da.jpg');
+      background-size: cover;
+      background-position: center;
+      filter: blur(12px) brightness(0.6);
+      z-index: 0;
+    }
+
+    /* Overlay gelap tambahan untuk keterbacaan */
+    #cover-overlay::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(26, 15, 10, 0.3) 0%,
+        rgba(26, 15, 10, 0.55) 50%,
+        rgba(26, 15, 10, 0.7) 100%
+      );
+      z-index: 1;
     }
 
     #cover-overlay.fade-out {
       opacity: 0;
       transform: scale(1.1);
       pointer-events: none;
-    }
-
-    /* Partikel dekoratif di cover */
-    .cover-particles {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-    }
-
-    .particle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      background: var(--gold);
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: float 6s ease-in-out infinite;
     }
 
     .cover-content {
@@ -187,26 +195,40 @@
       animation: fadeInUp 1s ease 0.3s both;
     }
 
+    .cover-ring {
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 28px;
+      animation: ringGlow 3s ease-in-out infinite, fadeIn 1.2s ease 0.1s both;
+    }
+
+    .cover-ring img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 8px rgba(201,169,110,0.3));
+    }
+
     .cover-ornament {
-      width: 80px;
+      width: 100px;
       height: 2px;
       background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
     }
 
     .cover-subtitle {
       font-family: var(--font-sans);
       font-size: 13px;
       font-weight: 300;
-      letter-spacing: 4px;
+      letter-spacing: 5px;
       text-transform: uppercase;
       color: var(--gold-light);
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .cover-names {
       font-family: var(--font-serif);
-      font-size: 38px;
+      font-size: 40px;
       font-weight: 600;
       color: var(--white);
       line-height: 1.2;
@@ -215,26 +237,26 @@
 
     .cover-ampersand {
       font-family: var(--font-script);
-      font-size: 48px;
+      font-size: 52px;
       color: var(--gold);
       display: block;
-      margin: -8px 0;
+      margin: -6px 0;
     }
 
     .cover-guest-box {
-      margin-top: 40px;
-      padding: 24px 20px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(201,169,110,0.25);
+      margin-top: 36px;
+      padding: 20px 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(201,169,110,0.2);
       border-radius: 12px;
       backdrop-filter: blur(10px);
     }
 
     .cover-guest-label {
-      font-size: 12px;
-      letter-spacing: 2px;
+      font-size: 11px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
+      color: rgba(255,255,255,0.45);
       margin-bottom: 8px;
     }
 
@@ -249,16 +271,16 @@
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-top: 36px;
-      padding: 16px 40px;
+      margin-top: 32px;
+      padding: 16px 44px;
       background: linear-gradient(135deg, var(--gold-dark), var(--gold));
       color: var(--brown-deep);
       border: none;
       border-radius: 50px;
       font-family: var(--font-sans);
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
       text-transform: uppercase;
       cursor: pointer;
       transition: var(--transition);
@@ -1203,6 +1225,7 @@
     @media (max-width: 640px) {
       .cover-names { font-size: 30px; }
       .cover-ampersand { font-size: 38px; }
+      .cover-ring { width: 70px; height: 70px; }
       .hero-names { font-size: 36px; }
       .hero-ampersand { font-size: 42px; }
       .hero-photo-container { width: 220px; height: 220px; }
@@ -1245,10 +1268,15 @@
        COVER / AMPLOP OVERLAY
        ======================================== -->
   <div id="cover-overlay">
-    <div class="cover-particles" id="cover-particles"></div>
-    
     <div class="cover-content">
+      <!-- Gambar cincin -->
+      <div class="cover-ring">
+        <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin Pernikahan">
+      </div>
+
+      <!-- Garis ornamen kuning -->
       <div class="cover-ornament"></div>
+
       <p class="cover-subtitle">The Wedding Of</p>
       <div class="cover-names">
         Elsa
@@ -1646,41 +1674,25 @@
        JAVASCRIPT
        ======================================== -->
   <script>
-    /* ========================================
-       KONFIGURASI
-       ======================================== */
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxyqq3ts-Q2jMVnJCnNGCzWf2DRvZoYs63vMRqUFsvTwaBq8an6V4kR1lOEOw48HyZu/exec";
 
-    // 28 April 2028
     const WEDDING_DATE = new Date("2028-04-28T08:00:00+07:00");
 
-    /* ========================================
-       STATE
-       ======================================== */
     let isPlaying = false;
     let countdownInterval = null;
     let ucapanRefreshInterval = null;
     let currentNamaTamu = "Tamu Undangan";
 
-    /* ========================================
-       INISIALISASI
-       ======================================== */
     document.addEventListener("DOMContentLoaded", () => {
-      // 1. Tangkap nama tamu dari URL
       const urlParams = new URLSearchParams(window.location.search);
       currentNamaTamu = urlParams.get('to') || "Tamu Undangan";
       document.getElementById("nama-tamu").textContent = currentNamaTamu;
       document.getElementById("input-nama").value = currentNamaTamu;
 
-      // 2. Generate partikel di cover
-      generateCoverParticles();
-
-      // 3. Inisialisasi Lucide icons
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
       }
 
-      // 4. Event listeners
       document.getElementById("btn-open").addEventListener("click", bukaUndangan);
       document.getElementById("btn-music").addEventListener("click", toggleAudio);
       document.getElementById("form-rsvp").addEventListener("submit", handleRSVPSubmit);
@@ -1689,7 +1701,6 @@
         if (e.target === e.currentTarget) closeLightbox();
       });
 
-      // Nav dots click
       document.querySelectorAll('.nav-dot').forEach(dot => {
         dot.addEventListener('click', () => {
           const section = dot.dataset.section;
@@ -1698,39 +1709,13 @@
         });
       });
 
-      // 5. Scroll reveal observer
       initScrollReveal();
 
-      // 6. Keyboard accessibility untuk lightbox
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeLightbox();
       });
     });
 
-    /* ========================================
-       PARTIKEL COVER
-       ======================================== */
-    function generateCoverParticles() {
-      const container = document.getElementById("cover-particles");
-      if (!container) return;
-      
-      for (let i = 0; i < 30; i++) {
-        const particle = document.createElement("div");
-        particle.className = "particle";
-        particle.style.left = Math.random() * 100 + "%";
-        particle.style.top = Math.random() * 100 + "%";
-        particle.style.width = (Math.random() * 6 + 2) + "px";
-        particle.style.height = particle.style.width;
-        particle.style.animationDelay = (Math.random() * 6) + "s";
-        particle.style.animationDuration = (Math.random() * 4 + 4) + "s";
-        particle.style.opacity = (Math.random() * 0.3 + 0.1);
-        container.appendChild(particle);
-      }
-    }
-
-    /* ========================================
-       BUKA UNDANGAN
-       ======================================== */
     function bukaUndangan() {
       const cover = document.getElementById("cover-overlay");
       const mainContent = document.getElementById("main-content");
@@ -1738,7 +1723,6 @@
       const btnMusic = document.getElementById("btn-music");
       const navDots = document.getElementById("nav-dots");
 
-      // Animasi tutup cover
       cover.classList.add("fade-out");
 
       setTimeout(() => {
@@ -1747,20 +1731,12 @@
         btnMusic.classList.remove("hidden");
         navDots.classList.remove("hidden");
 
-        // Mulai countdown
         startCountdown();
-
-        // Load ucapan dari Google Sheets
         loadDaftarUcapan();
-
-        // Refresh ucapan setiap 15 detik
         ucapanRefreshInterval = setInterval(loadDaftarUcapan, 15000);
-
-        // Trigger scroll reveal untuk elemen yang sudah visible
         setTimeout(checkReveal, 100);
       }, 800);
 
-      // Play musik
       if (audio) {
         audio.play().then(() => {
           isPlaying = true;
@@ -1772,9 +1748,6 @@
       }
     }
 
-    /* ========================================
-       TOGGLE MUSIK
-       ======================================== */
     function toggleAudio() {
       const audio = document.getElementById("bg-music");
       const btn = document.getElementById("btn-music");
@@ -1793,9 +1766,6 @@
       isPlaying = !isPlaying;
     }
 
-    /* ========================================
-       COUNTDOWN TIMER
-       ======================================== */
     function startCountdown() {
       function updateCountdown() {
         const now = new Date().getTime();
@@ -1825,9 +1795,6 @@
       countdownInterval = setInterval(updateCountdown, 1000);
     }
 
-    /* ========================================
-       API: KIRIM RSVP
-       ======================================== */
     async function submitRSVPData(payload) {
       try {
         const response = await fetch(GAS_URL, {
@@ -1841,9 +1808,6 @@
       }
     }
 
-    /* ========================================
-       API: AMBIL UCAPAN
-       ======================================== */
     async function fetchUcapanData() {
       try {
         const response = await fetch(`${GAS_URL}?action=getUcapan`);
@@ -1854,9 +1818,6 @@
       }
     }
 
-    /* ========================================
-       HANDLE FORM SUBMIT
-       ======================================== */
     async function handleRSVPSubmit(e) {
       e.preventDefault();
 
@@ -1866,7 +1827,6 @@
       const jumlah = document.getElementById("input-jumlah").value;
       const ucapan = document.getElementById("input-ucapan").value.trim();
 
-      // Validasi
       if (!nama) {
         showToast("Nama tidak boleh kosong", "error");
         return;
@@ -1876,7 +1836,6 @@
         return;
       }
 
-      // Disable button & loading state
       btnSubmit.disabled = true;
       btnSubmit.textContent = "Mengirim...";
 
@@ -1894,28 +1853,20 @@
 
       if (result.status === "success") {
         showToast("Terima kasih! Ucapan Anda berhasil terkirim", "success");
-        
-        // Reset form (kecuali nama)
         document.getElementById("input-konfirmasi").value = "Hadir";
         document.getElementById("input-jumlah").value = "1";
         document.getElementById("input-ucapan").value = "";
-
-        // Refresh daftar ucapan
         setTimeout(() => loadDaftarUcapan(), 1000);
       } else {
         showToast("Gagal mengirim: " + (result.message || "Coba lagi nanti"), "error");
       }
     }
 
-    /* ========================================
-       LOAD & RENDER UCAPAN
-       ======================================== */
     async function loadDaftarUcapan() {
       const container = document.getElementById("list-ucapan-content");
       const result = await fetchUcapanData();
 
       if (result.status === "success" && result.data && result.data.length > 0) {
-        // Urutkan dari terbaru
         const sorted = [...result.data].reverse();
         container.innerHTML = sorted.map((item, index) => renderUcapanCard(item, index)).join('');
       } else {
@@ -1970,14 +1921,10 @@
       return div.innerHTML;
     }
 
-    /* ========================================
-       SALIN REKENING
-       ======================================== */
     function copyRekening(nomor) {
       navigator.clipboard.writeText(nomor).then(() => {
         showToast("Nomor rekening berhasil disalin!", "info");
       }).catch(() => {
-        // Fallback untuk browser yang tidak support clipboard API
         const textarea = document.createElement('textarea');
         textarea.value = nomor;
         textarea.style.position = 'fixed';
@@ -1994,30 +1941,19 @@
       });
     }
 
-    /* ========================================
-       GIFT TABS
-       ======================================== */
     function switchGiftTab(btn, bankId) {
-      // Deactivate semua tab
       document.querySelectorAll('.gift-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.gift-content').forEach(c => c.classList.add('hidden'));
-
-      // Activate yang dipilih
       btn.classList.add('active');
       const content = document.getElementById('gift-' + bankId);
       if (content) content.classList.remove('hidden');
     }
 
-    /* ========================================
-       LIGHTBOX GALERI
-       ======================================== */
     function openLightbox(element) {
       const img = element.querySelector('img');
       if (!img) return;
-      
       const lightbox = document.getElementById("lightbox");
       const lightboxImg = document.getElementById("lightbox-img");
-      
       lightboxImg.src = img.src;
       lightboxImg.alt = img.alt;
       lightbox.classList.add("active");
@@ -2030,26 +1966,17 @@
       document.body.style.overflow = '';
     }
 
-    /* ========================================
-       TOAST NOTIFICATION
-       ======================================== */
     function showToast(message, type = "info") {
       const toast = document.getElementById("toast");
       toast.textContent = message;
       toast.className = "toast " + type;
-      
-      // Force reflow
       void toast.offsetWidth;
       toast.classList.add("show");
-
       setTimeout(() => {
         toast.classList.remove("show");
       }, 3000);
     }
 
-    /* ========================================
-       SCROLL REVEAL (IntersectionObserver)
-       ======================================== */
     function initScrollReveal() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -2066,7 +1993,6 @@
         observer.observe(el);
       });
 
-      // Simpan observer untuk nav dots
       initNavDotsObserver();
     }
 
@@ -2079,9 +2005,6 @@
       });
     }
 
-    /* ========================================
-       NAV DOTS - ACTIVE STATE ON SCROLL
-       ======================================== */
     function initNavDotsObserver() {
       const sections = ['hero', 'countdown', 'acara', 'story', 'galeri', 'rsvp', 'wishes', 'gift'];
       const dots = document.querySelectorAll('.nav-dot');
@@ -2105,7 +2028,6 @@
       });
     }
 
-    // Scroll reveal saat scroll
     window.addEventListener('scroll', () => {
       if (!document.getElementById("main-content").classList.contains("hidden")) {
         checkReveal();
