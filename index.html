@@ -96,6 +96,12 @@
       to { opacity: 1; }
     }
 
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      33% { transform: translateY(-10px) rotate(2deg); }
+      66% { transform: translateY(-5px) rotate(-1deg); }
+    }
+
     @keyframes pulse-gold {
       0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.4); }
       50% { box-shadow: 0 0 0 15px rgba(201,169,110,0); }
@@ -148,6 +154,7 @@
       overflow: hidden;
     }
 
+    /* Background gambar blur */
     #cover-overlay::before {
       content: '';
       position: absolute;
@@ -159,6 +166,7 @@
       z-index: 0;
     }
 
+    /* Overlay gelap tambahan untuk keterbacaan */
     #cover-overlay::after {
       content: '';
       position: absolute;
@@ -403,76 +411,47 @@
 
     /* ========================================
        SECTION: HERO MEMPELAI
-       Teknik Negative Margin Overlap
        ======================================== */
     #hero {
-      padding-top: 100px;
-      padding-bottom: 60px;
+      padding-top: 60px;
+      text-align: center;
     }
 
     .hero-ornament-top {
       font-family: var(--font-script);
-      font-size: 32px;
+      font-size: 36px;
       color: var(--gold);
-      margin-bottom: 20px;
-      text-align: center;
+      margin-bottom: 16px;
     }
 
-    /* Wrapper utama nama — posisi relatif untuk ampersand absolut */
-    .hero-names-wrapper {
-      position: relative;
-      text-align: left;
-      padding-left: 16px;
-    }
-
-    /* Nama pertama */
-    .hero-name-first {
-      font-family: var(--font-script);
-      font-size: 58px;
-      font-weight: 400;
+    .hero-names {
+      font-family: var(--font-serif);
+      font-size: 48px;
+      font-weight: 700;
       color: var(--brown-dark);
-      line-height: 1.1;
-      margin: 0;
-      padding-left: 12px;
+      line-height: 1.15;
+      margin-bottom: 6px;
     }
 
-    /* Ampersand — terpisah, transparan, absolut */
-    .hero-ampersand-float {
-      position: absolute;
-      left: 52px;
-      top: 50px;
+    .hero-ampersand {
       font-family: var(--font-script);
-      font-size: 34px;
-      font-weight: 400;
+      font-size: 56px;
       color: var(--gold);
-      opacity: 0.4;
-      pointer-events: none;
-      line-height: 1;
-    }
-
-    /* Nama kedua — NEGATIVE MARGIN OVERLAP */
-    .hero-name-second {
-      font-family: var(--font-script);
-      font-size: 68px;
-      font-weight: 400;
-      color: var(--brown-dark);
-      line-height: 1.1;
-      margin-top: -26px;
-      margin-left: 44px;
+      display: block;
+      margin: 4px 0;
     }
 
     .hero-date {
       font-family: var(--font-serif);
-      font-size: 16px;
+      font-size: 18px;
       font-weight: 400;
       font-style: italic;
       color: var(--text-secondary);
-      margin-top: 28px;
-      margin-left: 56px;
+      margin-top: 20px;
     }
 
     .hero-photo-container {
-      margin: 48px auto 0;
+      margin: 40px auto 0;
       position: relative;
       width: 280px;
       height: 280px;
@@ -938,7 +917,7 @@
       transform: none;
     }
 
-    /* Toast */
+    /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 90px;
@@ -1025,7 +1004,9 @@
       flex-shrink: 0;
     }
 
-    .wish-meta { flex: 1; }
+    .wish-meta {
+      flex: 1;
+    }
 
     .wish-name {
       font-family: var(--font-serif);
@@ -1245,27 +1226,8 @@
       .cover-names { font-size: 30px; }
       .cover-ampersand { font-size: 38px; }
       .cover-ring { width: 70px; height: 70px; }
-
-      /* Negative margin overlap — mobile scale down */
-      .hero-name-first {
-        font-size: 42px;
-        padding-left: 8px;
-      }
-      .hero-ampersand-float {
-        left: 36px;
-        top: 36px;
-        font-size: 26px;
-      }
-      .hero-name-second {
-        font-size: 50px;
-        margin-top: -20px;
-        margin-left: 32px;
-      }
-      .hero-date {
-        margin-left: 40px;
-        font-size: 14px;
-      }
-
+      .hero-names { font-size: 36px; }
+      .hero-ampersand { font-size: 42px; }
       .hero-photo-container { width: 220px; height: 220px; }
       .section { padding: 60px 20px; }
       .section-title { font-size: 26px; }
@@ -1295,6 +1257,9 @@
 </head>
 <body>
 
+  <!-- ========================================
+       AUDIO BACKGROUND
+       ======================================== -->
   <audio id="bg-music" loop preload="auto">
     <source src="https://cdn.jsdelivr.net/gh/gdp311201/invitation@main/backsound.mp3" type="audio/mpeg">
   </audio>
@@ -1304,20 +1269,26 @@
        ======================================== -->
   <div id="cover-overlay">
     <div class="cover-content">
+      <!-- Gambar cincin -->
       <div class="cover-ring">
         <img src="https://i.ibb.co/8LsnYwkC/Untitled-design.png" alt="Cincin Pernikahan">
       </div>
+
+      <!-- Garis ornamen kuning -->
       <div class="cover-ornament"></div>
+
       <p class="cover-subtitle">The Wedding Of</p>
       <div class="cover-names">
         Elsa
         <span class="cover-ampersand">&</span>
         Julyo
       </div>
+      
       <div class="cover-guest-box">
         <p class="cover-guest-label">Kepada Yth. Bapak/Ibu/Saudara/i</p>
         <p class="cover-guest-name" id="nama-tamu">Tamu Undangan</p>
       </div>
+      
       <button class="btn-open" id="btn-open" aria-label="Buka undangan">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
         Buka Undangan
@@ -1325,10 +1296,16 @@
     </div>
   </div>
 
+  <!-- ========================================
+       FLOATING MUSIC BUTTON
+       ======================================== -->
   <button id="btn-music" class="floating-music hidden" aria-label="Toggle musik">
     <span id="music-icon">🎵</span>
   </button>
 
+  <!-- ========================================
+       NAVIGATION DOTS
+       ======================================== -->
   <nav class="nav-dots hidden" id="nav-dots" aria-label="Navigasi section">
     <div class="nav-dot active" data-section="hero" title="Mempelai"></div>
     <div class="nav-dot" data-section="countdown" title="Hitung Mundur"></div>
@@ -1340,8 +1317,14 @@
     <div class="nav-dot" data-section="gift" title="Amplop Digital"></div>
   </nav>
 
+  <!-- ========================================
+       TOAST NOTIFICATION
+       ======================================== -->
   <div id="toast" class="toast"></div>
 
+  <!-- ========================================
+       LIGHTBOX
+       ======================================== -->
   <div id="lightbox" class="lightbox" role="dialog" aria-label="Preview foto">
     <button class="lightbox-close" id="lightbox-close" aria-label="Tutup preview">&times;</button>
     <img id="lightbox-img" src="" alt="Preview foto">
@@ -1352,32 +1335,28 @@
        ======================================== -->
   <main id="main-content" class="hidden">
 
-    <!-- ========================================
-         SECTION: HERO MEMPELAI
-         Negative Margin Overlap Technique
-         ======================================== -->
+    <!-- SECTION: HERO MEMPELAI -->
     <section id="hero" class="section">
       <div class="reveal">
         <p class="hero-ornament-top">Bismillahirrahmanirrahim</p>
       </div>
-
-      <!-- Nama mempelai dengan overlap -->
-      <div class="hero-names-wrapper reveal reveal-delay-1">
-        <div class="hero-name-first">Elsa</div>
-        <div class="hero-ampersand-float">&</div>
-        <div class="hero-name-second">Julyo</div>
+      <div class="reveal reveal-delay-1">
+        <h1 class="hero-names">
+          Elsa
+          <span class="hero-ampersand">&</span>
+          Julyo
+        </h1>
+        <p class="hero-date">Sabtu, 28 April 2028</p>
       </div>
-
-      <p class="hero-date reveal reveal-delay-2">Sabtu, 28 April 2028</p>
       
-      <div class="hero-photo-container reveal reveal-delay-3">
+      <div class="hero-photo-container reveal reveal-delay-2">
         <div class="hero-photo-bg"></div>
         <div class="hero-photo-frame">
           <img src="https://picsum.photos/seed/elsa-julyo-wedding/600/600.jpg" alt="Foto Mempelai" loading="lazy">
         </div>
       </div>
 
-      <div class="hero-quote reveal reveal-delay-4">
+      <div class="hero-quote reveal reveal-delay-3">
         <p>"Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu pasangan hidup dari jenismu sendiri, supaya kamu merasa tenteram kepadanya, dan dijadikan-Nya di antaramu rasa kasih dan sayang."</p>
         <cite>QS. Ar-Rum: 21</cite>
       </div>
@@ -1415,6 +1394,8 @@
         <h2 class="section-title">Rangkaian Acara</h2>
         <p class="section-subtitle">Insya Allah akan dilaksanakan</p>
       </div>
+
+      <!-- Akad Nikah -->
       <div class="acara-card reveal reveal-delay-1">
         <div class="acara-icon">
           <i data-lucide="heart" style="width:24px;height:24px;"></i>
@@ -1438,6 +1419,8 @@
           Buka Lokasi
         </a>
       </div>
+
+      <!-- Resepsi -->
       <div class="acara-card reveal reveal-delay-2">
         <div class="acara-icon">
           <i data-lucide="party-popper" style="width:24px;height:24px;"></i>
@@ -1470,6 +1453,7 @@
         <h2 class="section-title">Perjalanan Cinta</h2>
         <div class="divider"></div>
       </div>
+
       <div class="timeline">
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
@@ -1493,7 +1477,7 @@
           <div class="timeline-dot"></div>
           <p class="timeline-date">Februari 2025</p>
           <h4 class="timeline-title">Menjalin Hubungan Kedua</h4>
-          <p class="timeline-desc">Takdir mempertemukan kembali. Kali ini, kami lebih yakin — ini bukan sekadar rasa, ini pilihan.</p>
+          <p class="timeline-desc">Takdir mempertemukan kembali. Kali ini, dengan hati yang lebih dewasa, kami lebih yakin — ini bukan sekadar rasa, ini pilihan.</p>
         </div>
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
@@ -1517,6 +1501,7 @@
         <h2 class="section-title">Momen Kami</h2>
         <div class="divider"></div>
       </div>
+
       <div class="gallery-grid reveal reveal-delay-1">
         <div class="gallery-item" onclick="openLightbox(this)">
           <img src="https://picsum.photos/seed/elsa-julyo-01/600/800.jpg" alt="Foto pre-wedding 1" loading="lazy">
@@ -1549,11 +1534,13 @@
         <p class="section-subtitle">Konfirmasi kehadiran & doa terbaik</p>
         <p class="section-desc">Kehadiran Anda adalah bentuk doa dan restu yang sangat berarti bagi kami.</p>
       </div>
+
       <form class="rsvp-form reveal reveal-delay-1" id="form-rsvp">
         <div class="form-group">
           <label for="input-nama">Nama Lengkap</label>
           <input type="text" id="input-nama" class="form-input" readonly required>
         </div>
+
         <div class="form-row">
           <div class="form-group">
             <label for="input-konfirmasi">Konfirmasi</label>
@@ -1568,11 +1555,15 @@
             <input type="number" id="input-jumlah" class="form-input" value="1" min="1" max="5">
           </div>
         </div>
+
         <div class="form-group">
           <label for="input-ucapan">Ucapan & Doa</label>
           <textarea id="input-ucapan" class="form-input" placeholder="Tulis ucapan & doa terbaik untuk kedua mempelai..." required></textarea>
         </div>
-        <button type="submit" class="btn-submit" id="btn-submit">Kirim Konfirmasi & Ucapan</button>
+
+        <button type="submit" class="btn-submit" id="btn-submit">
+          Kirim Konfirmasi & Ucapan
+        </button>
       </form>
     </section>
 
@@ -1583,6 +1574,7 @@
         <h2 class="section-title">Wall of Wishes</h2>
         <div class="divider"></div>
       </div>
+
       <div class="wishes-container reveal reveal-delay-1" id="list-ucapan-content">
         <div class="wishes-empty">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;color:var(--brown-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -1599,11 +1591,14 @@
         <p class="section-subtitle">Doa restu Anda merupakan karunia yang sangat berarti</p>
         <p class="section-desc">Namun jika Anda ingin memberikan tanda kasih, kami menyediakan amplop digital.</p>
       </div>
+
       <div class="gift-tabs reveal reveal-delay-1">
         <button class="gift-tab active" data-bank="bca" onclick="switchGiftTab(this, 'bca')">BCA</button>
         <button class="gift-tab" data-bank="mandiri" onclick="switchGiftTab(this, 'mandiri')">Mandiri</button>
         <button class="gift-tab" data-bank="hadiah" onclick="switchGiftTab(this, 'hadiah')">Kirim Hadiah</button>
       </div>
+
+      <!-- BCA -->
       <div class="gift-content reveal reveal-delay-2" id="gift-bca">
         <div class="gift-card">
           <div class="gift-bank-logo">BCA</div>
@@ -1617,6 +1612,8 @@
           </button>
         </div>
       </div>
+
+      <!-- Mandiri -->
       <div class="gift-content hidden reveal reveal-delay-2" id="gift-mandiri">
         <div class="gift-card">
           <div class="gift-bank-logo" style="background: linear-gradient(135deg, #003d79, #0060af);">MDR</div>
@@ -1630,11 +1627,19 @@
           </button>
         </div>
       </div>
+
+      <!-- Kirim Hadiah -->
       <div class="gift-content hidden reveal reveal-delay-2" id="gift-hadiah">
         <div class="gift-card">
           <div class="gift-address">
             <h4>Alamat Pengiriman Hadiah</h4>
-            <p>Jl. Kebahagiaan No. 21<br>RT 05/RW 03, Kel. Cinta<br>Kec. Bahagia, Semarang<br>50123<br><br><strong>a.n. Elsa & Julyo</strong></p>
+            <p>
+              Jl. Kebahagiaan No. 21<br>
+              RT 05/RW 03, Kel. Cinta<br>
+              Kec. Bahagia, Semarang<br>
+              50123<br><br>
+              <strong>a.n. Elsa & Julyo</strong>
+            </p>
           </div>
         </div>
       </div>
@@ -1646,17 +1651,31 @@
         <div class="closing-ornament">
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
         </div>
-        <p class="closing-message">Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami.</p>
-        <p class="closing-message" style="font-size: 15px; margin-top: -10px;">Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.</p>
-        <h3 class="closing-names" style="margin-top: 40px;">Elsa & Julyo</h3>
+        <p class="closing-message">
+          Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu kepada kami.
+        </p>
+        <p class="closing-message" style="font-size: 15px; margin-top: -10px;">
+          Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.
+        </p>
+        <h3 class="closing-names" style="margin-top: 40px;">
+          Elsa & Julyo
+        </h3>
         <p class="closing-family">Kel. Bapak X & Ibu Y<br>Kel. Bapak Z & Ibu W</p>
-        <div class="closing-footer"><p>Made with love for our special day</p></div>
+        
+        <div class="closing-footer">
+          <p>Made with love for our special day</p>
+        </div>
       </div>
     </section>
+
   </main>
 
+  <!-- ========================================
+       JAVASCRIPT
+       ======================================== -->
   <script>
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxyqq3ts-Q2jMVnJCnNGCzWf2DRvZoYs63vMRqUFsvTwaBq8an6V4kR1lOEOw48HyZu/exec";
+
     const WEDDING_DATE = new Date("2028-04-28T08:00:00+07:00");
 
     let isPlaying = false;
@@ -1670,7 +1689,9 @@
       document.getElementById("nama-tamu").textContent = currentNamaTamu;
       document.getElementById("input-nama").value = currentNamaTamu;
 
-      if (typeof lucide !== 'undefined') lucide.createIcons();
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
 
       document.getElementById("btn-open").addEventListener("click", bukaUndangan);
       document.getElementById("btn-music").addEventListener("click", toggleAudio);
@@ -1682,13 +1703,17 @@
 
       document.querySelectorAll('.nav-dot').forEach(dot => {
         dot.addEventListener('click', () => {
-          const el = document.getElementById(dot.dataset.section);
+          const section = dot.dataset.section;
+          const el = document.getElementById(section);
           if (el) el.scrollIntoView({ behavior: 'smooth' });
         });
       });
 
       initScrollReveal();
-      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+      });
     });
 
     function bukaUndangan() {
@@ -1705,6 +1730,7 @@
         mainContent.classList.remove("hidden");
         btnMusic.classList.remove("hidden");
         navDots.classList.remove("hidden");
+
         startCountdown();
         loadDaftarUcapan();
         ucapanRefreshInterval = setInterval(loadDaftarUcapan, 15000);
@@ -1716,7 +1742,9 @@
           isPlaying = true;
           document.getElementById("music-icon").textContent = "🎵";
           btnMusic.classList.add("playing");
-        }).catch(err => console.log("Autoplay ditolak browser:", err));
+        }).catch(err => {
+          console.log("Autoplay ditolak browser:", err);
+        });
       }
     }
 
@@ -1724,6 +1752,7 @@
       const audio = document.getElementById("bg-music");
       const btn = document.getElementById("btn-music");
       const icon = document.getElementById("music-icon");
+
       if (isPlaying) {
         audio.pause();
         icon.textContent = "🔇";
@@ -1738,54 +1767,89 @@
     }
 
     function startCountdown() {
-      function update() {
-        const dist = WEDDING_DATE.getTime() - Date.now();
-        if (dist <= 0) {
-          ["cd-days","cd-hours","cd-minutes","cd-seconds"].forEach(id => document.getElementById(id).textContent = "00");
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = WEDDING_DATE.getTime() - now;
+
+        if (distance <= 0) {
+          document.getElementById("cd-days").textContent = "00";
+          document.getElementById("cd-hours").textContent = "00";
+          document.getElementById("cd-minutes").textContent = "00";
+          document.getElementById("cd-seconds").textContent = "00";
           if (countdownInterval) clearInterval(countdownInterval);
           return;
         }
-        document.getElementById("cd-days").textContent = String(Math.floor(dist / 864e5)).padStart(2, '0');
-        document.getElementById("cd-hours").textContent = String(Math.floor((dist % 864e5) / 36e5)).padStart(2, '0');
-        document.getElementById("cd-minutes").textContent = String(Math.floor((dist % 36e5) / 6e4)).padStart(2, '0');
-        document.getElementById("cd-seconds").textContent = String(Math.floor((dist % 6e4) / 1e3)).padStart(2, '0');
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("cd-days").textContent = String(days).padStart(2, '0');
+        document.getElementById("cd-hours").textContent = String(hours).padStart(2, '0');
+        document.getElementById("cd-minutes").textContent = String(minutes).padStart(2, '0');
+        document.getElementById("cd-seconds").textContent = String(seconds).padStart(2, '0');
       }
-      update();
-      countdownInterval = setInterval(update, 1000);
+
+      updateCountdown();
+      countdownInterval = setInterval(updateCountdown, 1000);
     }
 
     async function submitRSVPData(payload) {
       try {
-        const r = await fetch(GAS_URL, { method: "POST", body: JSON.stringify(payload) });
-        return await r.json();
-      } catch (e) { return { status: "error", message: e.toString() }; }
+        const response = await fetch(GAS_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        return await response.json();
+      } catch (error) {
+        console.error("Error kirim RSVP:", error);
+        return { status: "error", message: error.toString() };
+      }
     }
 
     async function fetchUcapanData() {
       try {
-        const r = await fetch(`${GAS_URL}?action=getUcapan`);
-        return await r.json();
-      } catch (e) { return { status: "error", data: [] }; }
+        const response = await fetch(`${GAS_URL}?action=getUcapan`);
+        return await response.json();
+      } catch (error) {
+        console.error("Error fetch ucapan:", error);
+        return { status: "error", data: [] };
+      }
     }
 
     async function handleRSVPSubmit(e) {
       e.preventDefault();
-      const btn = document.getElementById("btn-submit");
+
+      const btnSubmit = document.getElementById("btn-submit");
       const nama = document.getElementById("input-nama").value.trim();
       const konfirmasi = document.getElementById("input-konfirmasi").value;
       const jumlah = document.getElementById("input-jumlah").value;
       const ucapan = document.getElementById("input-ucapan").value.trim();
 
-      if (!nama) { showToast("Nama tidak boleh kosong", "error"); return; }
-      if (!ucapan) { showToast("Silakan tulis ucapan & doa", "error"); return; }
+      if (!nama) {
+        showToast("Nama tidak boleh kosong", "error");
+        return;
+      }
+      if (!ucapan) {
+        showToast("Silakan tulis ucapan & doa", "error");
+        return;
+      }
 
-      btn.disabled = true;
-      btn.textContent = "Mengirim...";
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = "Mengirim...";
 
-      const result = await submitRSVPData({ nama, konfirmasi, jumlah: parseInt(jumlah), ucapan });
+      const payload = {
+        nama: nama,
+        konfirmasi: konfirmasi,
+        jumlah: parseInt(jumlah),
+        ucapan: ucapan
+      };
 
-      btn.disabled = false;
-      btn.textContent = "Kirim Konfirmasi & Ucapan";
+      const result = await submitRSVPData(payload);
+
+      btnSubmit.disabled = false;
+      btnSubmit.textContent = "Kirim Konfirmasi & Ucapan";
 
       if (result.status === "success") {
         showToast("Terima kasih! Ucapan Anda berhasil terkirim", "success");
@@ -1801,95 +1865,173 @@
     async function loadDaftarUcapan() {
       const container = document.getElementById("list-ucapan-content");
       const result = await fetchUcapanData();
+
       if (result.status === "success" && result.data && result.data.length > 0) {
-        container.innerHTML = [...result.data].reverse().map((item, i) => renderUcapanCard(item, i)).join('');
+        const sorted = [...result.data].reverse();
+        container.innerHTML = sorted.map((item, index) => renderUcapanCard(item, index)).join('');
       } else {
-        container.innerHTML = '<div class="wishes-empty"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;color:var(--brown-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><p>Belum ada ucapan.<br>Jadilah yang pertama memberikan doa!</p></div>';
+        container.innerHTML = `
+          <div class="wishes-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;color:var(--brown-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <p>Belum ada ucapan.<br>Jadilah yang pertama memberikan doa!</p>
+          </div>
+        `;
       }
     }
 
-    function renderUcapanCard(item, i) {
+    function renderUcapanCard(item, index) {
       const initial = (item.nama || "A").charAt(0).toUpperCase();
       const isHadir = item.konfirmasi === "Hadir";
+      const badgeClass = isHadir ? "hadir" : "tidak";
+      const badgeText = isHadir ? "Hadir" : (item.konfirmasi || "Tidak Hadir");
+      
       let timeStr = "";
       if (item.timestamp) {
         try {
-          const d = new Date(item.timestamp);
-          if (!isNaN(d.getTime())) timeStr = d.toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
-        } catch(e) {}
+          const date = new Date(item.timestamp);
+          if (!isNaN(date.getTime())) {
+            timeStr = date.toLocaleDateString('id-ID', { 
+              day: 'numeric', month: 'short', year: 'numeric',
+              hour: '2-digit', minute: '2-digit'
+            });
+          }
+        } catch(e) {
+          timeStr = "";
+        }
       }
-      return `<div class="wish-card" style="animation-delay:${i*0.05}s"><div class="wish-header"><div class="wish-avatar">${initial}</div><div class="wish-meta"><p class="wish-name">${escapeHtml(item.nama||'Anonim')}</p><p class="wish-time">${timeStr}</p></div><span class="wish-badge ${isHadir?'hadir':'tidak'}">${isHadir?'Hadir':(item.konfirmasi||'Tidak Hadir')}</span></div><p class="wish-message">"${escapeHtml(item.ucapan||'')}"</p></div>`;
+
+      return `
+        <div class="wish-card" style="animation-delay: ${index * 0.05}s">
+          <div class="wish-header">
+            <div class="wish-avatar">${initial}</div>
+            <div class="wish-meta">
+              <p class="wish-name">${escapeHtml(item.nama || 'Anonim')}</p>
+              <p class="wish-time">${timeStr}</p>
+            </div>
+            <span class="wish-badge ${badgeClass}">${badgeText}</span>
+          </div>
+          <p class="wish-message">"${escapeHtml(item.ucapan || '')}"</p>
+        </div>
+      `;
     }
 
-    function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
 
     function copyRekening(nomor) {
-      navigator.clipboard.writeText(nomor).then(() => showToast("Nomor rekening berhasil disalin!", "info")).catch(() => {
-        const t = document.createElement('textarea'); t.value = nomor; t.style.cssText = 'position:fixed;opacity:0'; document.body.appendChild(t); t.select();
-        try { document.execCommand('copy'); showToast("Nomor rekening berhasil disalin!", "info"); } catch(e) { showToast("Gagal menyalin.", "error"); }
-        document.body.removeChild(t);
+      navigator.clipboard.writeText(nomor).then(() => {
+        showToast("Nomor rekening berhasil disalin!", "info");
+      }).catch(() => {
+        const textarea = document.createElement('textarea');
+        textarea.value = nomor;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showToast("Nomor rekening berhasil disalin!", "info");
+        } catch (e) {
+          showToast("Gagal menyalin. Silakan salin manual.", "error");
+        }
+        document.body.removeChild(textarea);
       });
     }
 
-    function switchGiftTab(btn, id) {
+    function switchGiftTab(btn, bankId) {
       document.querySelectorAll('.gift-tab').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.gift-content').forEach(c => c.classList.add('hidden'));
       btn.classList.add('active');
-      const el = document.getElementById('gift-' + id);
-      if (el) el.classList.remove('hidden');
+      const content = document.getElementById('gift-' + bankId);
+      if (content) content.classList.remove('hidden');
     }
 
-    function openLightbox(el) {
-      const img = el.querySelector('img');
+    function openLightbox(element) {
+      const img = element.querySelector('img');
       if (!img) return;
-      document.getElementById("lightbox-img").src = img.src;
-      document.getElementById("lightbox-img").alt = img.alt;
-      document.getElementById("lightbox").classList.add("active");
+      const lightbox = document.getElementById("lightbox");
+      const lightboxImg = document.getElementById("lightbox-img");
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add("active");
       document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox() {
-      document.getElementById("lightbox").classList.remove("active");
+      const lightbox = document.getElementById("lightbox");
+      lightbox.classList.remove("active");
       document.body.style.overflow = '';
     }
 
-    function showToast(msg, type = "info") {
-      const t = document.getElementById("toast");
-      t.textContent = msg; t.className = "toast " + type;
-      void t.offsetWidth; t.classList.add("show");
-      setTimeout(() => t.classList.remove("show"), 3000);
+    function showToast(message, type = "info") {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.className = "toast " + type;
+      void toast.offsetWidth;
+      toast.classList.add("show");
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
     }
 
     function initScrollReveal() {
-      new IntersectionObserver((entries) => {
-        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
-      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }).observe(document.querySelectorAll('.reveal'));
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        observer.observe(el);
+      });
+
       initNavDotsObserver();
     }
 
     function checkReveal() {
       document.querySelectorAll('.reveal').forEach(el => {
-        if (el.getBoundingClientRect().top < window.innerHeight * 0.85) el.classList.add('active');
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.85) {
+          el.classList.add('active');
+        }
       });
     }
 
     function initNavDotsObserver() {
+      const sections = ['hero', 'countdown', 'acara', 'story', 'galeri', 'rsvp', 'wishes', 'gift'];
       const dots = document.querySelectorAll('.nav-dot');
-      new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
             dots.forEach(d => d.classList.remove('active'));
-            const dot = document.querySelector(`.nav-dot[data-section="${e.target.id}"]`);
-            if (dot) dot.classList.add('active');
+            const activeDot = document.querySelector(`.nav-dot[data-section="${id}"]`);
+            if (activeDot) activeDot.classList.add('active');
           }
         });
-      }, { threshold: 0.3 }).observe(
-        ['hero','countdown','acara','story','galeri','rsvp','wishes','gift'].map(id => document.getElementById(id)).filter(Boolean)
-      );
+      }, {
+        threshold: 0.3
+      });
+
+      sections.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) observer.observe(el);
+      });
     }
 
     window.addEventListener('scroll', () => {
-      if (!document.getElementById("main-content").classList.contains("hidden")) checkReveal();
+      if (!document.getElementById("main-content").classList.contains("hidden")) {
+        checkReveal();
+      }
     }, { passive: true });
   </script>
 </body>
