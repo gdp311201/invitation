@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Undangan Pernikahan - Arjuna & Sinta</title>
+  <title>Undangan Pernikahan - Elsa & Julyo</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,25 +15,27 @@
 
   <style>
     /* ========================================
-       CSS VARIABLES - TEMA EMERALD & GOLD
+       CSS VARIABLES - TEMA JAWA (COKLAT & GOLD)
        ======================================== */
     :root {
-      --emerald-deep: #1a3c34;
-      --emerald: #2d6a4f;
-      --emerald-light: #40916c;
-      --emerald-pale: #b7e4c7;
+      --brown-deep: #1a0f0a;
+      --brown-dark: #2c1810;
+      --brown: #5c3a28;
+      --brown-medium: #8b5e3c;
+      --brown-light: #b8896a;
+      --brown-pale: #d4b896;
       --gold: #c9a96e;
       --gold-light: #e0c991;
       --gold-dark: #a68b4b;
-      --cream: #faf6f0;
-      --cream-dark: #f0ebe3;
+      --cream: #faf5ee;
+      --cream-dark: #f0e8db;
       --white: #ffffff;
-      --dark: #1a1a1a;
-      --text-primary: #2d2d2d;
-      --text-secondary: #6b6b6b;
-      --text-light: #999999;
-      --shadow-soft: 0 4px 20px rgba(0,0,0,0.08);
-      --shadow-medium: 0 8px 30px rgba(0,0,0,0.12);
+      --dark: #1a0f0a;
+      --text-primary: #2c1810;
+      --text-secondary: #6b5a4e;
+      --text-light: #9e8e80;
+      --shadow-soft: 0 4px 20px rgba(44,24,16,0.08);
+      --shadow-medium: 0 8px 30px rgba(44,24,16,0.12);
       --shadow-gold: 0 4px 20px rgba(201,169,110,0.3);
       --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --font-serif: 'Playfair Display', Georgia, serif;
@@ -67,8 +69,8 @@
     .hidden { display: none !important; }
 
     ::selection {
-      background: var(--emerald-pale);
-      color: var(--emerald-deep);
+      background: var(--brown-pale);
+      color: var(--brown-deep);
     }
 
     /* ========================================
@@ -77,7 +79,7 @@
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-track { background: var(--cream); }
     ::-webkit-scrollbar-thumb { 
-      background: var(--emerald-light); 
+      background: var(--brown-light); 
       border-radius: 3px; 
     }
 
@@ -108,16 +110,6 @@
     @keyframes pulse-gold {
       0%, 100% { box-shadow: 0 0 0 0 rgba(201,169,110,0.4); }
       50% { box-shadow: 0 0 0 15px rgba(201,169,110,0); }
-    }
-
-    @keyframes sparkle {
-      0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-      50% { opacity: 1; transform: scale(1) rotate(180deg); }
-    }
-
-    @keyframes envelope-open {
-      0% { transform: perspective(800px) rotateX(0deg); }
-      100% { transform: perspective(800px) rotateX(-180deg); }
     }
 
     @keyframes scaleIn {
@@ -157,7 +149,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, var(--emerald-deep) 0%, var(--emerald) 50%, var(--emerald-light) 100%);
+      background: linear-gradient(135deg, var(--brown-deep) 0%, var(--brown-dark) 40%, var(--brown) 100%);
       transition: opacity 0.8s ease, transform 0.8s ease;
       overflow: hidden;
     }
@@ -232,8 +224,8 @@
     .cover-guest-box {
       margin-top: 40px;
       padding: 24px 20px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(201,169,110,0.3);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,169,110,0.25);
       border-radius: 12px;
       backdrop-filter: blur(10px);
     }
@@ -242,7 +234,7 @@
       font-size: 12px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.5);
       margin-bottom: 8px;
     }
 
@@ -260,7 +252,7 @@
       margin-top: 36px;
       padding: 16px 40px;
       background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      color: var(--emerald-deep);
+      color: var(--brown-deep);
       border: none;
       border-radius: 50px;
       font-family: var(--font-sans);
@@ -289,8 +281,8 @@
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: var(--emerald);
-      color: var(--white);
+      background: var(--brown-dark);
+      color: var(--gold);
       border: 2px solid var(--gold);
       display: flex;
       align-items: center;
@@ -328,8 +320,8 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: rgba(45,106,79,0.2);
-      border: 1px solid var(--emerald-light);
+      background: rgba(92,58,40,0.15);
+      border: 1px solid var(--brown-light);
       cursor: pointer;
       transition: var(--transition);
     }
@@ -363,7 +355,7 @@
       font-family: var(--font-serif);
       font-size: 32px;
       font-weight: 600;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       margin-bottom: 8px;
       line-height: 1.3;
     }
@@ -386,7 +378,7 @@
     .divider {
       width: 60px;
       height: 2px;
-      background: linear-gradient(90deg, var(--gold), var(--emerald-light));
+      background: linear-gradient(90deg, var(--gold), var(--brown-medium));
       margin: 0 auto 40px;
       border-radius: 1px;
     }
@@ -414,7 +406,7 @@
       font-family: var(--font-serif);
       font-size: 48px;
       font-weight: 700;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       line-height: 1.15;
       margin-bottom: 6px;
     }
@@ -463,7 +455,7 @@
     .hero-photo-bg {
       position: absolute;
       inset: -15px;
-      border: 2px solid var(--emerald-pale);
+      border: 2px solid var(--brown-pale);
       border-radius: 50%;
       opacity: 0.5;
     }
@@ -471,7 +463,7 @@
     .hero-quote {
       margin-top: 40px;
       padding: 24px;
-      background: linear-gradient(135deg, rgba(45,106,79,0.05), rgba(201,169,110,0.08));
+      background: linear-gradient(135deg, rgba(92,58,40,0.04), rgba(201,169,110,0.08));
       border-left: 3px solid var(--gold);
       border-radius: 0 12px 12px 0;
     }
@@ -499,7 +491,7 @@
        SECTION: COUNTDOWN
        ======================================== */
     #countdown {
-      background: linear-gradient(135deg, var(--emerald-deep), var(--emerald));
+      background: linear-gradient(135deg, var(--brown-deep), var(--brown-dark), var(--brown));
       border-radius: 20px;
       padding: 48px 24px;
       text-align: center;
@@ -526,8 +518,8 @@
     }
 
     .countdown-item {
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(201,169,110,0.3);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(201,169,110,0.25);
       border-radius: 12px;
       padding: 20px 8px;
       backdrop-filter: blur(10px);
@@ -545,7 +537,7 @@
       font-size: 11px;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.6);
+      color: rgba(255,255,255,0.5);
       margin-top: 8px;
     }
 
@@ -558,7 +550,7 @@
       padding: 32px 24px;
       box-shadow: var(--shadow-soft);
       margin-bottom: 24px;
-      border: 1px solid rgba(201,169,110,0.15);
+      border: 1px solid rgba(201,169,110,0.12);
       text-align: center;
       transition: var(--transition);
     }
@@ -572,12 +564,12 @@
       width: 56px;
       height: 56px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+      background: linear-gradient(135deg, var(--brown), var(--brown-medium));
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 20px;
-      color: var(--white);
+      color: var(--gold-light);
     }
 
     .acara-type {
@@ -591,7 +583,7 @@
       font-family: var(--font-serif);
       font-size: 22px;
       font-weight: 600;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       margin-bottom: 20px;
     }
 
@@ -610,7 +602,7 @@
     }
 
     .acara-detail i {
-      color: var(--emerald);
+      color: var(--brown);
       flex-shrink: 0;
     }
 
@@ -620,7 +612,7 @@
       gap: 8px;
       margin-top: 20px;
       padding: 12px 28px;
-      background: var(--emerald);
+      background: var(--brown);
       color: var(--white);
       text-decoration: none;
       border-radius: 50px;
@@ -631,7 +623,7 @@
     }
 
     .btn-map:hover {
-      background: var(--emerald-deep);
+      background: var(--brown-dark);
       transform: translateY(-2px);
       box-shadow: var(--shadow-medium);
     }
@@ -651,7 +643,7 @@
       top: 0;
       bottom: 0;
       width: 2px;
-      background: linear-gradient(to bottom, var(--gold), var(--emerald-light), var(--gold));
+      background: linear-gradient(to bottom, var(--gold), var(--brown-medium), var(--gold));
     }
 
     .timeline-item {
@@ -689,7 +681,7 @@
       font-family: var(--font-serif);
       font-size: 18px;
       font-weight: 600;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       margin-bottom: 8px;
     }
 
@@ -741,7 +733,7 @@
     .gallery-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(26,60,52,0.6), transparent);
+      background: linear-gradient(to top, rgba(26,15,10,0.6), transparent);
       opacity: 0;
       transition: opacity 0.4s ease;
       display: flex;
@@ -764,7 +756,7 @@
       position: fixed;
       inset: 0;
       z-index: 2000;
-      background: rgba(0,0,0,0.9);
+      background: rgba(0,0,0,0.92);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -832,7 +824,7 @@
       display: block;
       font-size: 13px;
       font-weight: 700;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       margin-bottom: 8px;
       letter-spacing: 0.5px;
     }
@@ -851,8 +843,8 @@
     }
 
     .form-input:focus {
-      border-color: var(--emerald-light);
-      box-shadow: 0 0 0 3px rgba(64,145,108,0.15);
+      border-color: var(--brown-light);
+      box-shadow: 0 0 0 3px rgba(184,137,106,0.2);
     }
 
     .form-input::placeholder {
@@ -879,7 +871,7 @@
     .btn-submit {
       width: 100%;
       padding: 16px;
-      background: linear-gradient(135deg, var(--emerald), var(--emerald-deep));
+      background: linear-gradient(135deg, var(--brown), var(--brown-dark));
       color: var(--white);
       border: none;
       border-radius: 50px;
@@ -926,9 +918,9 @@
     }
 
     .toast.success {
-      background: var(--emerald);
+      background: var(--brown);
       color: var(--white);
-      box-shadow: 0 8px 24px rgba(45,106,79,0.4);
+      box-shadow: 0 8px 24px rgba(92,58,40,0.4);
     }
 
     .toast.error {
@@ -939,7 +931,7 @@
 
     .toast.info {
       background: var(--gold);
-      color: var(--emerald-deep);
+      color: var(--brown-deep);
       box-shadow: var(--shadow-gold);
     }
 
@@ -954,7 +946,7 @@
 
     .wishes-container::-webkit-scrollbar { width: 4px; }
     .wishes-container::-webkit-scrollbar-thumb { 
-      background: var(--emerald-pale); 
+      background: var(--brown-pale); 
       border-radius: 2px; 
     }
 
@@ -979,11 +971,11 @@
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--emerald-light), var(--emerald));
+      background: linear-gradient(135deg, var(--brown-medium), var(--brown));
       display: flex;
       align-items: center;
       justify-content: center;
-      color: var(--white);
+      color: var(--gold-light);
       font-family: var(--font-serif);
       font-weight: 700;
       font-size: 16px;
@@ -998,7 +990,7 @@
       font-family: var(--font-serif);
       font-size: 15px;
       font-weight: 600;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
     }
 
     .wish-time {
@@ -1015,8 +1007,8 @@
     }
 
     .wish-badge.hadir {
-      background: rgba(45,106,79,0.1);
-      color: var(--emerald);
+      background: rgba(92,58,40,0.1);
+      color: var(--brown);
     }
 
     .wish-badge.tidak {
@@ -1036,13 +1028,6 @@
       padding: 40px 20px;
       color: var(--text-light);
       font-size: 14px;
-    }
-
-    .wishes-empty i {
-      display: block;
-      font-size: 40px;
-      margin-bottom: 12px;
-      color: var(--emerald-pale);
     }
 
     /* ========================================
@@ -1070,9 +1055,9 @@
     }
 
     .gift-tab.active {
-      background: var(--emerald);
+      background: var(--brown);
       color: var(--white);
-      border-color: var(--emerald);
+      border-color: var(--brown);
     }
 
     .gift-card {
@@ -1081,28 +1066,28 @@
       padding: 32px 24px;
       text-align: center;
       box-shadow: var(--shadow-soft);
-      border: 1px solid rgba(201,169,110,0.15);
+      border: 1px solid rgba(201,169,110,0.12);
     }
 
     .gift-bank-logo {
       width: 60px;
       height: 60px;
       border-radius: 12px;
-      background: linear-gradient(135deg, var(--emerald), var(--emerald-light));
+      background: linear-gradient(135deg, var(--brown), var(--brown-medium));
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 16px;
-      color: var(--white);
+      color: var(--gold-light);
       font-weight: 800;
-      font-size: 18px;
+      font-size: 14px;
     }
 
     .gift-bank-name {
       font-family: var(--font-serif);
       font-size: 18px;
       font-weight: 600;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       margin-bottom: 4px;
     }
 
@@ -1131,8 +1116,8 @@
       gap: 8px;
       padding: 10px 24px;
       background: transparent;
-      border: 1.5px solid var(--emerald);
-      color: var(--emerald);
+      border: 1.5px solid var(--brown);
+      color: var(--brown);
       border-radius: 50px;
       font-size: 13px;
       font-weight: 600;
@@ -1141,7 +1126,7 @@
     }
 
     .btn-copy:hover {
-      background: var(--emerald);
+      background: var(--brown);
       color: var(--white);
     }
 
@@ -1156,7 +1141,7 @@
     .gift-address h4 {
       font-family: var(--font-serif);
       font-size: 16px;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       margin-bottom: 8px;
     }
 
@@ -1194,7 +1179,7 @@
       font-family: var(--font-serif);
       font-size: 28px;
       font-weight: 600;
-      color: var(--emerald-deep);
+      color: var(--brown-dark);
       margin-bottom: 6px;
     }
 
@@ -1253,23 +1238,22 @@
        AUDIO BACKGROUND
        ======================================== -->
   <audio id="bg-music" loop preload="auto">
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    <source src="https://cdn.jsdelivr.net/gh/gdp311201/invitation@main/backsound.mp3" type="audio/mpeg">
   </audio>
 
   <!-- ========================================
        COVER / AMPLOP OVERLAY
        ======================================== -->
   <div id="cover-overlay">
-    <!-- Partikel dekoratif -->
     <div class="cover-particles" id="cover-particles"></div>
     
     <div class="cover-content">
       <div class="cover-ornament"></div>
       <p class="cover-subtitle">The Wedding Of</p>
       <div class="cover-names">
-        Arjuna
+        Elsa
         <span class="cover-ampersand">&</span>
-        Sinta
+        Julyo
       </div>
       
       <div class="cover-guest-box">
@@ -1326,21 +1310,21 @@
     <!-- SECTION: HERO MEMPELAI -->
     <section id="hero" class="section">
       <div class="reveal">
-        <p class="hero-ornament">Bismillahirrahmanirrahim</p>
+        <p class="hero-ornament-top">Bismillahirrahmanirrahim</p>
       </div>
       <div class="reveal reveal-delay-1">
         <h1 class="hero-names">
-          Arjuna
+          Elsa
           <span class="hero-ampersand">&</span>
-          Sinta
+          Julyo
         </h1>
-        <p class="hero-date">Minggu, 20 Oktober 2026</p>
+        <p class="hero-date">Sabtu, 28 April 2028</p>
       </div>
       
       <div class="hero-photo-container reveal reveal-delay-2">
         <div class="hero-photo-bg"></div>
         <div class="hero-photo-frame">
-          <img src="https://picsum.photos/seed/wedding-couple-2026/600/600.jpg" alt="Foto Mempelai" loading="lazy">
+          <img src="https://picsum.photos/seed/elsa-julyo-wedding/600/600.jpg" alt="Foto Mempelai" loading="lazy">
         </div>
       </div>
 
@@ -1392,7 +1376,7 @@
         <h3 class="acara-title">Ikrar Suci Pernikahan</h3>
         <div class="acara-detail">
           <i data-lucide="calendar" style="width:18px;height:18px;"></i>
-          <span>Minggu, 20 Oktober 2026</span>
+          <span>Sabtu, 28 April 2028</span>
         </div>
         <div class="acara-detail">
           <i data-lucide="clock" style="width:18px;height:18px;"></i>
@@ -1400,9 +1384,9 @@
         </div>
         <div class="acara-detail">
           <i data-lucide="map-pin" style="width:18px;height:18px;"></i>
-          <span>Masjid Al-Ikhlas, Jakarta Selatan</span>
+          <span>Masjid Agung Jawa Tengah, Semarang</span>
         </div>
-        <a href="https://maps.google.com/?q=-6.2614913,106.8105869" target="_blank" rel="noopener" class="btn-map">
+        <a href="https://maps.google.com/?q=Masjid+Agung+Jawa+Tengah+Semarang" target="_blank" rel="noopener" class="btn-map">
           <i data-lucide="navigation" style="width:16px;height:16px;"></i>
           Buka Lokasi
         </a>
@@ -1417,7 +1401,7 @@
         <h3 class="acara-title">Pesta Pernikahan</h3>
         <div class="acara-detail">
           <i data-lucide="calendar" style="width:18px;height:18px;"></i>
-          <span>Minggu, 20 Oktober 2026</span>
+          <span>Sabtu, 28 April 2028</span>
         </div>
         <div class="acara-detail">
           <i data-lucide="clock" style="width:18px;height:18px;"></i>
@@ -1425,9 +1409,9 @@
         </div>
         <div class="acara-detail">
           <i data-lucide="map-pin" style="width:18px;height:18px;"></i>
-          <span>Ballroom Hotel Gran Mahakam, Jakarta</span>
+          <span>Grand Ballroom Hotel Grand Candi, Semarang</span>
         </div>
-        <a href="https://maps.google.com/?q=-6.243524,106.798312" target="_blank" rel="noopener" class="btn-map">
+        <a href="https://maps.google.com/?q=Hotel+Grand+Candi+Semarang" target="_blank" rel="noopener" class="btn-map">
           <i data-lucide="navigation" style="width:16px;height:16px;"></i>
           Buka Lokasi
         </a>
@@ -1445,33 +1429,39 @@
       <div class="timeline">
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
-          <p class="timeline-date">Maret 2020</p>
-          <h4 class="timeline-title">Pertama Bertemu</h4>
-          <p class="timeline-desc">Kami bertemu pertama kali di sebuah seminar kampus. Senyummu yang hangat membuat hari itu terasa berbeda.</p>
-        </div>
-        <div class="timeline-item reveal">
-          <div class="timeline-dot"></div>
-          <p class="timeline-date">Juni 2020</p>
-          <h4 class="timeline-title">Mulai Dekat</h4>
-          <p class="timeline-desc">Obrolan ringan berubah menjadi percakapan panjang hingga larut malam. Kami menyadari ada ikatan yang tak terjelaskan.</p>
-        </div>
-        <div class="timeline-item reveal">
-          <div class="timeline-dot"></div>
           <p class="timeline-date">Desember 2021</p>
-          <h4 class="timeline-title">Resmi Berpacaran</h4>
-          <p class="timeline-desc">Di bawah langit malam yang dipenuhi bintang, kata-kata cinta akhirnya terucap. Kami memutuskan untuk melangkah bersama.</p>
+          <h4 class="timeline-title">Pertama Bertemu</h4>
+          <p class="timeline-desc">Pertemuan pertama yang tak terduga. Dari tatapan singkat, hati mulai memilih tanpa kata.</p>
         </div>
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
-          <p class="timeline-date">Agustus 2025</p>
+          <p class="timeline-date">Januari - Maret 2022</p>
+          <h4 class="timeline-title">Menjalin Hubungan Pertama</h4>
+          <p class="timeline-desc">Kami mulai mengenal satu sama lain. Obrolan ringan berubah menjadi cerita yang tak ingin diakhiri.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">2022 - 2024</p>
+          <h4 class="timeline-title">Berpisah</h4>
+          <p class="timeline-desc">Jalan yang kami pilih berbeda untuk sementara. Namun hati tetap menyimpan nama yang sama.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">Februari 2025</p>
+          <h4 class="timeline-title">Menjalin Hubungan Kedua</h4>
+          <p class="timeline-desc">Takdir mempertemukan kembali. Kali ini, kami lebih yakin — ini bukan sekadar rasa, ini pilihan.</p>
+        </div>
+        <div class="timeline-item reveal">
+          <div class="timeline-dot"></div>
+          <p class="timeline-date">Maret 2027</p>
           <h4 class="timeline-title">Lamaran</h4>
-          <p class="timeline-desc">Dengan doa restu dari kedua keluarga, cincin pun melingkar di jari manis. Janji suci untuk selamanya.</p>
+          <p class="timeline-desc">Dengan restu kedua keluarga, cincin pun melingkar. Janji untuk tidak lagi melepaskan tangan.</p>
         </div>
         <div class="timeline-item reveal">
           <div class="timeline-dot"></div>
-          <p class="timeline-date">20 Oktober 2026</p>
+          <p class="timeline-date">28 April 2028</p>
           <h4 class="timeline-title">Hari Bahagia</h4>
-          <p class="timeline-desc">Insya Allah, kami akan menyatukan langkah dalam ikatan pernikahan. Semoga menjadi keluarga yang sakinah, mawaddah, warahmah.</p>
+          <p class="timeline-desc">Insya Allah, kami akan menyatukan langkah dalam ikatan pernikahan. Sakinah, mawaddah, warahmah.</p>
         </div>
       </div>
     </section>
@@ -1486,23 +1476,23 @@
 
       <div class="gallery-grid reveal reveal-delay-1">
         <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://picsum.photos/seed/prewedding-01/600/800.jpg" alt="Foto pre-wedding 1" loading="lazy">
+          <img src="https://picsum.photos/seed/elsa-julyo-01/600/800.jpg" alt="Foto pre-wedding 1" loading="lazy">
           <div class="gallery-overlay"><span>Pre-Wedding</span></div>
         </div>
         <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://picsum.photos/seed/prewedding-02/400/400.jpg" alt="Foto pre-wedding 2" loading="lazy">
+          <img src="https://picsum.photos/seed/elsa-julyo-02/400/400.jpg" alt="Foto pre-wedding 2" loading="lazy">
           <div class="gallery-overlay"><span>Together</span></div>
         </div>
         <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://picsum.photos/seed/prewedding-03/400/400.jpg" alt="Foto pre-wedding 3" loading="lazy">
+          <img src="https://picsum.photos/seed/elsa-julyo-03/400/400.jpg" alt="Foto pre-wedding 3" loading="lazy">
           <div class="gallery-overlay"><span>Our Moment</span></div>
         </div>
         <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://picsum.photos/seed/prewedding-04/400/400.jpg" alt="Foto pre-wedding 4" loading="lazy">
+          <img src="https://picsum.photos/seed/elsa-julyo-04/400/400.jpg" alt="Foto pre-wedding 4" loading="lazy">
           <div class="gallery-overlay"><span>Smile</span></div>
         </div>
         <div class="gallery-item" onclick="openLightbox(this)">
-          <img src="https://picsum.photos/seed/prewedding-05/400/400.jpg" alt="Foto pre-wedding 5" loading="lazy">
+          <img src="https://picsum.photos/seed/elsa-julyo-05/400/400.jpg" alt="Foto pre-wedding 5" loading="lazy">
           <div class="gallery-overlay"><span>Happy</span></div>
         </div>
       </div>
@@ -1559,7 +1549,7 @@
 
       <div class="wishes-container reveal reveal-delay-1" id="list-ucapan-content">
         <div class="wishes-empty">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;color:var(--emerald-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;color:var(--brown-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
           <p>Belum ada ucapan.<br>Jadilah yang pertama memberikan doa!</p>
         </div>
       </div>
@@ -1585,10 +1575,10 @@
         <div class="gift-card">
           <div class="gift-bank-logo">BCA</div>
           <p class="gift-bank-name">Bank BCA</p>
-          <p class="gift-account-name">a.n. Arjuna Wijaya</p>
-          <div class="gift-account-number">1234 5678 90</div>
+          <p class="gift-account-name">a.n. Elsa & Julyo</p>
+          <div class="gift-account-number">9012 XXXX XXXX</div>
           <br>
-          <button class="btn-copy" onclick="copyRekening('1234567890')">
+          <button class="btn-copy" onclick="copyRekening('9012XXXXXXXX')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             Salin Nomor Rekening
           </button>
@@ -1600,10 +1590,10 @@
         <div class="gift-card">
           <div class="gift-bank-logo" style="background: linear-gradient(135deg, #003d79, #0060af);">MDR</div>
           <p class="gift-bank-name">Bank Mandiri</p>
-          <p class="gift-account-name">a.n. Sinta Dewi</p>
-          <div class="gift-account-number">0987 6543 21</div>
+          <p class="gift-account-name">a.n. Elsa & Julyo</p>
+          <div class="gift-account-number">9012 XXXX XXXX</div>
           <br>
-          <button class="btn-copy" onclick="copyRekening('0987654321')">
+          <button class="btn-copy" onclick="copyRekening('9012XXXXXXXX')">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             Salin Nomor Rekening
           </button>
@@ -1618,9 +1608,9 @@
             <p>
               Jl. Kebahagiaan No. 21<br>
               RT 05/RW 03, Kel. Cinta<br>
-              Kec. Bahagia, Jakarta Selatan<br>
-              12345<br><br>
-              <strong>a.n. Arjuna & Sinta</strong>
+              Kec. Bahagia, Semarang<br>
+              50123<br><br>
+              <strong>a.n. Elsa & Julyo</strong>
             </p>
           </div>
         </div>
@@ -1640,9 +1630,9 @@
           Atas kehadiran dan doa restunya, kami mengucapkan terima kasih.
         </p>
         <h3 class="closing-names" style="margin-top: 40px;">
-          Arjuna & Sinta
+          Elsa & Julyo
         </h3>
-        <p class="closing-family">Kel. Bapak Wijaya & Ibu Ratna<br>Kel. Bapak Surya & Ibu Wulan</p>
+        <p class="closing-family">Kel. Bapak X & Ibu Y<br>Kel. Bapak Z & Ibu W</p>
         
         <div class="closing-footer">
           <p>Made with love for our special day</p>
@@ -1659,11 +1649,10 @@
     /* ========================================
        KONFIGURASI
        ======================================== */
-    // Ganti dengan URL Google Apps Script kamu
     const GAS_URL = "https://script.google.com/macros/s/AKfycbxyqq3ts-Q2jMVnJCnNGCzWf2DRvZoYs63vMRqUFsvTwaBq8an6V4kR1lOEOw48HyZu/exec";
 
-    // Tanggal pernikahan (sesuaikan)
-    const WEDDING_DATE = new Date("2026-10-20T08:00:00+07:00");
+    // 28 April 2028
+    const WEDDING_DATE = new Date("2028-04-28T08:00:00+07:00");
 
     /* ========================================
        STATE
@@ -1813,7 +1802,6 @@
         const distance = WEDDING_DATE.getTime() - now;
 
         if (distance <= 0) {
-          // Sudah lewat hari H
           document.getElementById("cd-days").textContent = "00";
           document.getElementById("cd-hours").textContent = "00";
           document.getElementById("cd-minutes").textContent = "00";
@@ -1933,7 +1921,7 @@
       } else {
         container.innerHTML = `
           <div class="wishes-empty">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;color:var(--emerald-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin:0 auto 12px;color:var(--brown-pale)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
             <p>Belum ada ucapan.<br>Jadilah yang pertama memberikan doa!</p>
           </div>
         `;
